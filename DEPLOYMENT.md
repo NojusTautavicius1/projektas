@@ -1,6 +1,64 @@
 # Production Deployment Guide
 
-## Quick Start
+## Vercel Deployment (Recommended for Hobby Projects)
+
+### Prerequisites
+- GitHub account
+- Vercel account (free tier available)
+- MySQL database (e.g., PlanetScale, Railway, or other cloud provider)
+
+### Step 1: Database Setup
+
+Since Vercel is serverless, you need a cloud MySQL database. Options:
+- **PlanetScale** (free tier, MySQL-compatible)
+- **Railway** (free tier with MySQL)
+- **AWS RDS** (paid)
+- **DigitalOcean Managed Database** (paid)
+
+### Step 2: Push to GitHub
+
+```bash
+git add .
+git commit -m "Ready for Vercel deployment"
+git push origin main
+```
+
+### Step 3: Deploy to Vercel
+
+1. Go to [vercel.com](https://vercel.com) and sign in
+2. Click "Add New Project"
+3. Import your GitHub repository
+4. Vercel will auto-detect the configuration from `vercel.json`
+
+### Step 4: Configure Environment Variables
+
+In Vercel Dashboard → Your Project → Settings → Environment Variables, add:
+
+```
+JWT_SECRET=your_64_char_secret_generated_with_crypto
+MYSQL_HOST=your_cloud_db_host
+MYSQL_USER=your_db_user
+MYSQL_PASSWORD=your_db_password
+MYSQL_DATABASE=projects
+MYSQL_PORT=3306
+FRONTEND_URL=https://your-vercel-domain.vercel.app
+NODE_ENV=production
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_email_app_password
+```
+
+**Important Notes:**
+- All API routes created by Vercel as ONE serverless function (Hobby plan limit: 12 functions)
+- Database must be accessible from external connections
+- Enable SSL for MySQL connection in production
+
+### Step 5: Deploy
+
+Click "Deploy" and wait for the build to complete!
+
+---
+
+## Traditional Server Deployment
 
 ### Prerequisites
 - Node.js 18+ and npm

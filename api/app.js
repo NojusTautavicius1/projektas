@@ -46,7 +46,13 @@ app.use(function(err, req, res, next) {
     res.json({message: 'Serverio klaida'});
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, "127.0.0.1", () => {
-  console.log(`Programa veikia ant porto ${port}`);
-});
+// Export for Vercel
+export default app;
+
+// Local development server
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 3000;
+  app.listen(port, "127.0.0.1", () => {
+    console.log(`Programa veikia ant porto ${port}`);
+  });
+}
