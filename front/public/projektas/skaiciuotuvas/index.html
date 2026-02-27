@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <title>Skaičiuotuvas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="bg-0" class="bg-item" style="top: 0; right: 0; bottom: 0; left: 0;"></div>
+<div id="bg-1" class="bg-item" style="bottom: 0; left: 0;"></div>
+<div id="bg-2" class="bg-item" style="bottom: -15%; right: calc(35% - 217px);"></div>
+<div id="bg-3" class="bg-item" style="bottom: 20%; left: 15%;"></div>
+<div id="bg-4" class="bg-item" style="top: 0; right: 0; bottom: 0;"></div>
+<div id="bg-5" class="bg-item" style="bottom: 20%; right: 3%;"></div>
+<div id="bg-6" class="bg-item" style="top: 0; left: calc(50% - 281px);"></div>
+<div id="bg-7" class="bg-item" style="top: 0; left: 0;"></div>
+<div id="bg-8" class="bg-item" style="top: 15%; left: 0;"></div>
+<div id="bg-9" class="bg-item" style="top: 32%; left: 36%;"></div>
+<div id="bg-10" class="bg-item" style="top: 0; left: calc(50% - 182px);"></div>
+
+<main class="calculator-wrapper">
+  <div class="title-wrapper">
+    <div class="title">Skaičiuotuvas</div>
+    <div class="title">Skaičiuotuvas</div>
+  </div>
+
+  <section class="calculator">
+    <button id="toggler" class="toggle-theme">
+      <svg id="dark" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" style="display: block;">
+        <path d="M6 .278a.768.768 0 0 1 .08.858..."/>
+      </svg>
+      <svg id="light" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" style="display: none;">
+        <path d="M8 12a4 4 0 1 0 0-8..."/>
+      </svg>
+    </button>
+
+    <header class="calculator-header">
+      <div class="calculator-operation"></div>
+      <div class="calculator-operation-result">0</div>
+    </header>
+
+    <main class="calculator-body"></main>
+
+    <div class="calculator-button-wrapper">
+      <button class="calculator-button" data-value="C">C</button>
+      <button class="calculator-button" data-value="back">←</button>
+      <button class="calculator-button" data-value="%">%</button>
+      <button class="calculator-button" data-value="/">÷</button>
+
+      <button class="calculator-button highlight" data-value="7">7</button>
+      <button class="calculator-button highlight" data-value="8">8</button>
+      <button class="calculator-button highlight" data-value="9">9</button>
+      <button class="calculator-button" data-value="*">×</button>
+
+      <button class="calculator-button highlight" data-value="4">4</button>
+      <button class="calculator-button highlight" data-value="5">5</button>
+      <button class="calculator-button highlight" data-value="6">6</button>
+      <button class="calculator-button" data-value="-">-</button>
+
+      <button class="calculator-button highlight" data-value="1">1</button>
+      <button class="calculator-button highlight" data-value="2">2</button>
+      <button class="calculator-button highlight" data-value="3">3</button>
+      <button class="calculator-button" data-value="+">+</button>
+
+      <button class="calculator-button highlight" data-value="0">0</button>
+      <button class="calculator-button highlight" data-value=".">.</button>
+      <button class="calculator-button equal" data-value="=">=</button>
+    </div>
+  </section>
+
+  <div class="calculator-back"></div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "watch": ["*.js", "controllers/**", "models/**", "routes/**", "middleware/**"],
+  "ext": "js,json",
+  "ignore": ["scripts/**", "node_modules/**", "*.sql"],
+  "events": {
+    "restart": "node scripts/backup-db.js"
+  }
+}

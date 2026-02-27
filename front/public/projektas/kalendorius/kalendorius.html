@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalendorius</title>
+    <style>
+        table, tr, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .nezinau {
+            background-color: rgba(128, 128, 128, 0.5);
+            font-weight: bold;
+        }
+
+        .neaktyvi {
+            color: rgb(180, 180, 180);
+        }
+    </style>
+</head>
+<body>
+    <table id="lentele3"></table>
+
+    <script>
+        // Funkcija generuojanti kalendorių
+        function kalendorius(metai, menuo) {
+            let text = "";
+            text += "<tr><th colspan='7'>" + metai + " " + menesiopavadinimas(menuo) + "</th></tr>";
+            text += "<tr>" + savaitesDienos() + "</tr>";
+            text += "<tr>" + pirmaDiena(metai, menuo);
+            text += dienuSkaicius(metai, menuo);
+            return text;
+        }
+
+        // Mėnesio pavadinimas
+        function menesiopavadinimas(menuo) {
+            const menesiai = [
+                "Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė",
+                "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis",
+                "Spalis", "Lapkritis", "Gruodis"
+            ];
+            return menesiai[menuo];
+        }
+
+        // Savaitės dienų pavadinimai
+        function savaitesDienos() {
+            const dienos = ["Pr", "A", "T", "K", "Pe", "Š", "S"];
+            let text = "";
+            for (let i = 0; i < dienos.length; i++) {
+                text += "<th>" + dienos[i] + "</th>";
+            }
+            return text;
+        }
+
+        // Tuščios dienos prieš pirmą mėnesio dieną
+        function pirmaDiena(metai, menuo) {
+    let text = "";
+    const pirmadiena = new Date(metai, menuo, 1);
+
+    let startDay = pirmadiena.getDay();
+
+    startDay = (startDay === 0) ? 6 : startDay - 1; 
+    const paskutinePraeito = new Date(metai, menuo, 0).getDate(); 
+
+    for (let i = startDay; i > 0; i--) {
+        let praeitaDiena = paskutinePraeito - i + 1;
+        text += "<td class='neaktyvi'>" + praeitaDiena + "</td>";
+    }
+
+    text += "<td" + (siandiena(metai, menuo, 1) ? " class='nezinau'" : "") + ">1</td>";
+
+    return text;
+}
+
+        // Mėnesio dienų išvedimas
+        function dienuSkaicius(metai, menuo) { 
+            let text = "";
+            const paskutine = new Date(metai, menuo + 1, 0).getDate();
+            const pirmadiena = new Date(metai, menuo, 1);
+            let dienaSavaites = pirmadiena.getDay();
+            dienaSavaites = (dienaSavaites === 0) ? 6 : dienaSavaites - 1; // pirmadienis = 0
+
+            let dienos = 1;
+            for (let i = 2; i <= paskutine; i++) {
+                dienaSavaites++;
+                if (dienaSavaites > 6) {
+                    text += "</tr><tr>";
+                    dienaSavaites = 0;
+                }
+                if (siandiena(metai, menuo, i)) {
+                    text += "<td class='nezinau'>" + i + "</td>";
+                } else {
+                    text += "<td>" + i + "</td>";
+                }
+            }
+            return text;
+        }
+
+        // Patikrina ar šiandien
+        function siandiena(metai, menuo, diena) {
+            const siandien = new Date();
+            return (
+                siandien.getFullYear() === metai &&
+                siandien.getMonth() === menuo &&
+                siandien.getDate() === diena
+            );
+        }
+
+        // Automatinis dabartinio mėnesio kalendoriaus generavimas
+        const dabar = new Date();
+        document.getElementById('lentele3').innerHTML = kalendorius(dabar.getFullYear(), dabar.getMonth());
+    </script>
+</body>
+</html>

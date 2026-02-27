@@ -1,0 +1,5 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+/* Local shim for tw-animate-css to avoid missing dependency during dev */
+@import './tw-animate-css.css';

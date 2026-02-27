@@ -1,0 +1,14 @@
+/* Placeholder shim for tw-animate-css
+   Add any animations you need here or install the real
+   `tw-animate-css` package and revert the import.
+*/
+
+/* Example simple animation utilities used by project (optional) */
+@keyframes shim-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: shim-fade-in 0.6s ease-in-out both;
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Local Login — Private</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{background:#000;color:#e6e6e6;display:flex;align-items:center;justify-content:center}
+    .card{width:880px;max-width:96%;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:28px;border-radius:12px}
+    h1{font-family:serif;margin:0 0 12px 0;font-size:28px;color:#fff}
+    p{margin:0 0 18px 0;color:#bdbdbd}
+    textarea{width:100%;height:340px;background:#050505;border:1px solid #1f1f1f;color:#dcdcdc;padding:12px;border-radius:8px;font-family:Consolas,monospace;font-size:13px}
+    .meta{display:flex;gap:12px;margin-top:12px}
+    .btn{padding:8px 12px;background:#fff;color:#000;border-radius:8px;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Private Login / Workspace</h1>
+    <p>This is a local-only page for private editing or testing. Nothing here is shared.</p>
+
+    <label style="display:block;margin-bottom:8px;color:#9d9d9d">Notes / Code</label>
+    <textarea placeholder="Write notes, paste code, or use this area while developing locally..."></textarea>
+
+    <div class="meta">
+      <a class="btn" href="/">Return Home</a>
+      <a class="btn" href="#" onclick="alert('This is a local placeholder. Implement login handling as needed.')">Save (placeholder)</a>
+    </div>
+  </div>
+</body>
+</html>

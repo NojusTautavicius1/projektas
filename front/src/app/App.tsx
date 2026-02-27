@@ -1,0 +1,45 @@
+import { Hero } from "./components/Hero";
+import { About } from "./components/About";
+import { Projects } from "./components/Projects";
+import { Skills } from "./components/Skills";
+import { Contact } from "./components/Contact";
+import { FloatingElements } from "./components/FloatingElements";
+import { ParticleBackground } from "./components/ParticleBackground";
+import { Navigation } from "./components/Navigation";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import { useEffect, useState } from "react";
+import Login from "./pages/Login";
+
+export default function App() {
+  const [path, setPath] = useState<string>(typeof window !== 'undefined' ? window.location.pathname : "/");
+
+  useEffect(() => {
+    const onPop = () => setPath(window.location.pathname);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  const isLogin = path === "/login" || path === "/login/";
+
+  if (isLogin) {
+    return <Login />;
+  }
+
+  return (
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-gray-950 to-zinc-950 text-white overflow-hidden relative">
+        <ParticleBackground />
+        <FloatingElements />
+        
+        <div className="relative z-10">
+          <Navigation />
+          <ErrorBoundary><Hero /></ErrorBoundary>
+          <ErrorBoundary><About /></ErrorBoundary>
+          <ErrorBoundary><Projects /></ErrorBoundary>
+          <ErrorBoundary><Skills /></ErrorBoundary>
+          <ErrorBoundary><Contact /></ErrorBoundary>
+        </div>
+      </div>
+    </ErrorBoundary>
+  );
+}

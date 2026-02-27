@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <p id="uzd1"></p>
+
+    <hr>
+
+    
+    <p id="uzd2"></p>
+
+    <hr>
+
+    
+    <p id="uzd3"></p>
+
+    <hr>
+
+    
+    <p id="uzd4"></p>
+
+    <hr>
+
+    
+    <p id="uzd5"></p>
+
+    <hr>
+
+    
+    <p id="uzd6"></p>
+
+    <hr>
+
+    
+    <p id="uzd7"></p>
+
+    <hr>
+
+    
+    <p id="uzd8"></p>
+
+    <hr>
+
+    
+    <p id="uzd9"></p>
+
+
+
+    <script>
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        const longText = `
+        This is a long text example with several links embedded in it. 
+        You can find more information about JavaScript on 
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">MDN Web Docs</a>. 
+        Another useful resource is <a href="https://www.w3schools.com/js/" target="_blank">W3Schools</a> for tutorials and guides.
+
+        For advanced topics, you might want to check out the JavaScript documentation on 
+        <a href="https://www.javascript.info/" target="_blank">JavaScript.info</a>.
+
+        Additionally, you can read about JavaScript libraries like React on 
+        <a href="https://reactjs.org/" target="_blank">React Official Website</a> or learn about modern web development techniques at 
+        <a href="https://css-tricks.com/" target="_blank">CSS-Tricks</a>.
+
+        If you're looking for community discussions, the JavaScript community on 
+        <a href="https://stackoverflow.com/questions/tagged/javascript" target="_blank">Stack Overflow</a> is a great place to start.
+
+        That's just a few of the resources that can help you improve your skills. Happy coding!
+        `;
+        
+        let arrayText = longText.split("<a href=")
+        txt = ""
+
+        for (let i = 0; i < arrayText.length; i++){
+            if (arrayText[i].includes("https")){
+
+                let a = arrayText[i].indexOf('"')
+                let link = arrayText[i].slice(a+1)
+
+                let b = link.indexOf('"')
+                link = link.slice(0,b)
+
+                txt += link + "<br>"
+            }
+        }
+
+        document.getElementById("uzd1").innerHTML = txt
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 2 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        let linkRegExp = longText.match(/http(s)?:\/\/(www.)?[-a-zA-Z0-9]*\.[a-zA-Z0-9]*(.[a-zA-Z0-9/?=@\.-]*)?/g)
+        txt = ""
+
+        for(let i in linkRegExp){
+            txt += linkRegExp[i] + "<br>"
+        }
+
+        document.getElementById("uzd2").innerHTML = txt
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 3 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        const longText2 = `
+            <h1>Exploring JavaScript and HTML with Multiple Images</h1>
+            <p>JavaScript allows us to dynamically manipulate HTML content. You can easily display multiple images on a web page 
+            by embedding them within a JavaScript variable and inserting them into the page.</p>
+            
+            <p>Below are several images dynamically inserted into this page using JavaScript:</p>
+            
+            <img src="https://via.placeholder.com/500" alt="Placeholder Image 1" style="width: 100%; max-width: 500px; margin-bottom: 20px;" />
+            <p>This is the first placeholder image.</p>
+            
+            <img src="https://via.placeholder.com/600" alt="Placeholder Image 2" style="width: 100%; max-width: 600px; margin-bottom: 20px;" />
+            <p>This is the second placeholder image, slightly larger than the first one.</p>
+            
+            <img src="https://via.placeholder.com/700" alt="Placeholder Image 3" style="width: 100%; max-width: 700px; margin-bottom: 20px;" />
+            <p>This is the third placeholder image, which is even larger than the previous ones.</p>
+            
+            <img src="https://via.placeholder.com/800" alt="Placeholder Image 4" style="width: 100%; max-width: 800px; margin-bottom: 20px;" />
+            <p>This is the fourth placeholder image, showing an even bigger placeholder.</p>
+
+            <p>With JavaScript, you can control the sizes, order, and appearance of images. You can also add interactive functionality, 
+            like clicking on images to open them in a larger view or fetching new images from a server.</p>
+        `;
+
+        let arrayImg = longText2.split("<img src=")
+        txt = ""
+
+        for (let i = 0; i < arrayImg.length; i++){
+            if (arrayImg[i].includes("https")){
+
+                let a = arrayImg[i].indexOf('"')
+                let img = arrayImg[i].slice(a+1)
+
+                let b = img.indexOf('"')
+                img = img.slice(0,b)
+
+                txt += img + "<br>"
+            }
+        }
+
+        document.getElementById("uzd3").innerHTML = txt
+
+        
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 4 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        let imgRegExp = longText2.match(/http(s)?:\/\/(www.)?[-a-zA-Z0-9]*\.[a-zA-Z0-9]*(.[a-zA-Z0-9/?=@\.-]*)?/g)
+        txt = ""
+
+        for(let i in imgRegExp){
+            txt += imgRegExp[i] + "<br>"
+        }
+
+        document.getElementById("uzd4").innerHTML = txt
+
+
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 5 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        const letterAText = `The Amazing Adventures of Autumn
+        Autumn always arrives with an aura of anticipation. As the air cools and amber leaves fall from the trees, the atmosphere shifts, creating an almost magical ambiance. Everywhere you look, the landscape is adorned with vibrant colors, from the golden yellows to the rich reds. It's a season that invites adventure and reflection, with apples ripening on the branches and animals preparing for the approaching winter.
+        Among the activities that make autumn so appealing is apple picking. Acres of orchards line the countryside, offering an abundance of ripe fruits ready for harvest. As the sun shines, people gather armloads of apples, eager to bake pies or simply enjoy their sweet, crisp taste. Afterward, a walk through the woods or a visit to an autumn fair adds another layer of excitement to the day.
+        Autumn also offers an opportunity to appreciate the natural beauty that surrounds us. The air is fresh, and the days are still warm enough for afternoon adventures outdoors. Whether hiking along a trail or admiring the artwork of nature in a nearby park, autumn's atmosphere always seems to awaken a sense of adventure and appreciation for the simple joys of life.`
+
+        let arrayLetterA = letterAText.match(/\ba\w+/gi)
+        txt = ""
+
+        for(let i in arrayLetterA){
+            txt += arrayLetterA[i] + "<br>"
+        }
+
+        document.getElementById("uzd5").innerHTML = txt
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 6 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        const letterMText = `The Magic of Morning Moments
+        Mornings are magical. The moment the first rays of sunlight meet the morning mist, the world transforms into something almost mystical. The soft melody of birds singing in the trees and the gentle murmur of a nearby stream create a peaceful atmosphere that many people crave. Morning is a moment to reflect, to pause, and to embrace the tranquility before the madness of the day begins
+        Mornings are also a marvelous time for mindfulness. Many people find that taking a few minutes to meditate or simply sit quietly helps them manage the challenges ahead. The morning air is fresh, and the quiet moments offer a sense of renewal, making it the perfect time for motivation to spark for the tasks ahead.
+        As the day progresses, the magic of the morning often fades, but the memories of those calm, peaceful moments stay with you. The morning sets the mood for the entire day, shaping how you move through each moment with mindfulness and momentum.`
+
+        let arrayLetterM = letterMText.match(/\bm\w+/gi)
+        txt = ""
+
+        for(let i in arrayLetterM){
+            txt += arrayLetterM[i] + "<br>"
+        }
+
+        document.getElementById("uzd6").innerHTML = txt
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 7 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+        const letterTText = `The Tranquil Treasure of Twilight
+        Twilight is Truly a time of Transformation. As the sun sets, the sky turns a Tapestry of brilliant tones — from tender pinks to deep, Tranquil blues. The Transition from day to night is a Testament to nature's ability to create beauty in even the simplest moments. It's a time for Thoughts to settle, for tired travelers to take a pause, and for the world to take a collective breath before the darkness fully takes over.
+        The evening brings with it a peaceful, tranquil atmosphere. Trees Tremble in the gentle twilight breeze, their leaves trembling like whispers. It's the perfect time for reflection, whether taking a tranquil walk through the town or simply sitting in silence with a warm cup of tea. The twilight hours are filled with timeless beauty, reminding us that sometimes, it's the quiet, thoughtful moments that are the most treasured.
+        As the stars start to Twinkle in the sky, the night grows still, and the world prepares for a restful time. The tranquility of twilight lingers, offering a chance to slow down and savor the small, beautiful things in life.`
+
+        let arrayLetterT = letterTText.match(/\bT\w+/g)
+        txt = ""
+
+        for(let i in arrayLetterT){
+            txt += arrayLetterT[i] + "<br>"
+        }
+
+        document.getElementById("uzd7").innerHTML = txt
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 8 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        {
+        const email = "Nojus.tautavicius@stud.ktmc.lt"
+        let vartotojas = email.match(/[a-zA-Z0-9.]+(?=@)/g).toString()
+        let domenas = email.match(/(?<=@)[a-z.]+/g).toString()
+
+        txt = `Email: ${email} <br> <br>
+        Vartotojas: ${vartotojas} <br>
+        Domenas: ${domenas}`
+
+        document.getElementById("uzd8").innerHTML = txt
+        }
+
+        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ uzd 9 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+        let nuorodas = "https://moodle.ktmc.lt/mod/assign/view.php?id=262"
+        nuorodas += " "
+        let protokolas = nuorodas.match(/http(s)?/g)
+        let domenas = nuorodas.match(/(?<=http(s)?:\/\/(\w*\.)?)\w+\.\w+(?=\/)/g)
+        let subdomenas = nuorodas.match(/(?<=http(s)?:\/\/)\w+(?=\.\w+\.\w+\/)/g)
+        let katalogas = nuorodas.match(/(?<=http(s)?:\/\/(\w*\.)?\w+\.\w+)(\/\w+)+(\/|[-a-z]+\s)/g)
+        let vykdomasisFailas = nuorodas.match(/(?<=http(s)?:\/\/(\w*\.)?\w+\.\w+(\/\w+)+\/)\w+\.\w+/g)
+        let parametrai = nuorodas.match(/(?<=http(s)?:\/\/(\w*\.)?\w+\.\w+(\/\w+)+\/\w+\.\w+\?)[-a-zA-Z0-9=&]+/g)
+
+        document.getElementById("uzd9").innerHTML = `${nuorodas} <br> <br>
+        Protokolas: ${protokolas} <br>
+        Domenas: ${domenas} <br>
+        Subdomenas: ${subdomenas} <br>
+        Katalogas: ${katalogas} <br>
+        Vykdomasis failas: ${vykdomasisFailas} <br>
+        Parametrai: ${parametrai}`
+
+
+
+
+    </script>
+</body>
+</html>
