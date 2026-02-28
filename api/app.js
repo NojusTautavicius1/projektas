@@ -58,7 +58,7 @@ if (fs.existsSync(frontDistPath)) {
 app.use('/', indexRouter);
 
 // Serve frontend for any non-API routes (SPA fallback)
-app.get('*', function(req, res, next) {
+app.use(function(req, res, next) {
   // Skip API and image routes
   if (req.path.startsWith('/api') || req.path.startsWith('/images')) {
     return next();
