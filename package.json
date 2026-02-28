@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node api/index.js",
-    "build": "cd front && npm run build"
+    "build": "cd front && npm install && npm run build && cd ..",
+    "vercel-build": "cd front && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

@@ -1,11 +1,20 @@
 import express from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js';
 import cors from 'cors';
 import helmet from 'helmet';
-import { log } from 'console';
+import dotenv from 'dotenv';
+import fs from 'fs';
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
+
+// Get proper __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Security headers
 app.use(helmet({
@@ -15,24 +24,34 @@ app.use(helmet({
 
 // CORS nustatymai
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? [process.env.FRONTEND_URL]
+  ? [process.env.FRONTEND_URL, 'https://projektas-bj2p.vercel.app']
   : ['http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174', 'http://localhost:81', 'http://127.0.0.1:81'];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes(process.env.FRONTEND_URL)) {
+      return callback(null, true);
+    } else {
+      return callback(null, true); // Allow all in production for now
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const __dirname = path.resolve();
-const publicPath = process.env.VERCEL ? path.join(__dirname, 'api/public') : path.join(__dirname, 'public');
-const frontDistPath = process.env.VERCEL ? path.join(__dirname, 'front/dist') : path.join(__dirname, '../front/dist');
+// Serve public folder
+const publicPath = path.join(__dirname, 'public');
+if (fs.existsSync(publicPath)) {
+  app.use(express.static(publicPath));
+}
 
-app.use(express.static(publicPath));
-
-// Serve frontend static files
-if (process.env.NODE_ENV === 'production') {
+// Serve frontend static files if they exist
+const frontDistPath = path.join(__dirname, '../front/dist');
+if (fs.existsSync(frontDistPath)) {
   app.use(express.static(frontDistPath));
 }
 
@@ -40,15 +59,19 @@ app.use('/', indexRouter);
 
 // Serve frontend for any non-API routes (SPA fallback)
 app.get('*', function(req, res, next) {
+  // Skip API and image routes
   if (req.path.startsWith('/api') || req.path.startsWith('/images')) {
     return next();
   }
-  if (process.env.NODE_ENV === 'production') {
-    const indexPath = process.env.VERCEL ? path.join(__dirname, 'front/dist/index.html') : path.join(__dirname, '../front/dist/index.html');
-    res.sendFile(indexPath);
-  } else {
-    next();
+  
+  // Try to serve frontend index.html
+  const indexPath = path.join(__dirname, '../front/dist/index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
   }
+  
+  // If no frontend, continue to 404 handler
+  next();
 });
 
 app.use(function(req, res, next) {
@@ -57,6 +80,8 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
+  console.error('Error:', err);
+  
   if (!res.statusCode || res.statusCode === 200) {
     res.status(500);
   }
@@ -64,7 +89,7 @@ app.use(function(err, req, res, next) {
   if (typeof err === 'object' && !Array.isArray(err)) 
     res.json(err);
   else  
-    res.json({message: 'Serverio klaida'});
+    res.json({message: 'Serverio klaida', error: err.message || err});
 });
 
 export default app;

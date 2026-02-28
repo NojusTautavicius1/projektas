@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "cd front && npm install && npm run build && cd .. && npm install",
   "builds": [
     {
       "src": "index.js",
