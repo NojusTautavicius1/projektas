@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node api/index.js",
-    "build": "npm --prefix front install --legacy-peer-deps && npm --prefix front run build",
-    "vercel-build": "npm --prefix front install --legacy-peer-deps && npm --prefix front run build"
+    "build": "npm --prefix front install --legacy-peer-deps --include=dev && npm --prefix front run build",
+    "vercel-build": "npm --prefix front install --legacy-peer-deps --include=dev && npm --prefix front run build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
