@@ -26,9 +26,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'public')));
+const publicPath = process.env.VERCEL ? path.join(__dirname, 'api/public') : path.join(__dirname, 'public');
+const frontDistPath = process.env.VERCEL ? path.join(__dirname, 'front/dist') : path.join(__dirname, '../front/dist');
+
+app.use(express.static(publicPath));
+
+// Serve frontend static files
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(frontDistPath));
+}
 
 app.use('/', indexRouter);
+
+// Serve frontend for any non-API routes (SPA fallback)
+app.get('*', function(req, res, next) {
+  if (req.path.startsWith('/api') || req.path.startsWith('/images')) {
+    return next();
+  }
+  if (process.env.NODE_ENV === 'production') {
+    const indexPath = process.env.VERCEL ? path.join(__dirname, 'front/dist/index.html') : path.join(__dirname, '../front/dist/index.html');
+    res.sendFile(indexPath);
+  } else {
+    next();
+  }
+});
 
 app.use(function(req, res, next) {
   res.status(404);
