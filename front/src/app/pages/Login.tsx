@@ -32,8 +32,8 @@ export default function Login() {
 
     try {
       const endpoint = isLogin 
-        ? "http://localhost:3000/api/auth/login" 
-        : "http://localhost:3000/api/auth/register";
+        ? "/api/auth/login" 
+        : "/api/auth/register";
       
       const payload = isLogin
         ? { email: formData.email, password: formData.password }
@@ -82,7 +82,7 @@ export default function Login() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:3000/api/auth/google";
+    window.location.href = "/api/auth/google";
   };
 
   return (
