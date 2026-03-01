@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
   "builds": [
     {
       "src": "index.js",
@@ -13,16 +12,8 @@
       "dest": "/index.js"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/front/dist/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/front/dist/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/front/dist/index.html"
+      "dest": "/index.js"
     }
   ]
 }
