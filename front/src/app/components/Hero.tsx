@@ -94,7 +94,7 @@ export function Hero() {
           >
             {[
               { icon: Github, href: "https://github.com/NojusTautavicius1", label: "GitHub" },
-              { icon: Linkedin, href: "#", label: "LinkedIn" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/nojus-tautavi%C4%8Dius-8242683b4", label: "LinkedIn" },
               { icon: Mail, href: "#contact", label: "Email" }
             ].map((social, index) => {
               const isExternal = social.href?.startsWith("http");
