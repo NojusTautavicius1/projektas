@@ -12,12 +12,23 @@ import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 
 export default function App() {
-  const [path, setPath] = useState<string>(typeof window !== 'undefined' ? window.location.pathname : "/");
+  const [path, setPath] = useState<string>("");
 
   useEffect(() => {
+    // Set path on client side only
+    setPath(window.location.pathname);
+    
     const onPop = () => setPath(window.location.pathname);
     window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
+    
+    // Also listen for hash changes in case of hash routing
+    const onHashChange = () => setPath(window.location.pathname);
+    window.addEventListener("hashchange", onHashChange);
+    
+    return () => {
+      window.removeEventListener("popstate", onPop);
+      window.removeEventListener("hashchange", onHashChange);
+    };
   }, []);
 
   const isLogin = path === "/login" || path === "/login/";

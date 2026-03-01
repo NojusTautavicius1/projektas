@@ -69,15 +69,15 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-4">
-            <span className="text-green-400 font-semibold flex items-center gap-2 justify-center">
-              <Star className="w-4 h-4 fill-green-400" />
-              Client Reviews
+          <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
+            <span className="text-blue-400 font-semibold flex items-center gap-2 justify-center">
+              <Star className="w-4 h-4 fill-blue-400" />
+              Sample Reviews
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">What Clients Say</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Building My Reputation</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Don't just take my word for it — see what clients have to say about working with me.
+            These are sample testimonials. Real client reviews coming soon as I complete projects!
           </p>
         </div>
 
@@ -90,15 +90,18 @@ export function Testimonials() {
               ))}
             </div>
             <div className="text-3xl font-bold">5.0</div>
-            <div className="text-gray-400">Average Rating</div>
+            <div className="text-sm text-gray-500 mt-1">Target Rating</div>
+            <div className="text-xs text-gray-600">(Building portfolio)</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-400">50+</div>
-            <div className="text-gray-400">Projects Completed</div>
+            <div className="text-3xl font-bold text-blue-400">0+</div>
+            <div className="text-sm text-gray-500 mt-1">Projects Completed</div>
+            <div className="text-xs text-gray-600">(Starting fresh)</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-400">100%</div>
-            <div className="text-gray-400">Satisfaction Rate</div>
+            <div className="text-3xl font-bold text-blue-400">100%</div>
+            <div className="text-sm text-gray-500 mt-1">Commitment Goal</div>
+            <div className="text-xs text-gray-600">(Quality first)</div>
           </div>
         </div>
 
@@ -111,8 +114,13 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/30 transition-all"
+              className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/30 transition-all relative"
             >
+              {/* Sample Badge */}
+              <div className="absolute top-3 right-3 px-2 py-1 bg-blue-500/20 border border-blue-500/30 rounded text-xs text-blue-400">
+                Sample
+              </div>
+              
               {/* Quote Icon */}
               <Quote className="w-8 h-8 text-blue-400/30 mb-4" />
 
@@ -150,10 +158,20 @@ export function Testimonials() {
           ))}
         </div>
 
+        {/* Disclaimer */}
+        <div className="mt-12 bg-slate-900/50 border border-blue-500/30 rounded-xl p-6 max-w-3xl mx-auto">
+          <p className="text-center text-gray-400 mb-2">
+            <span className="text-blue-400 font-semibold">Note:</span> The testimonials above are sample reviews representing the quality of service I aim to provide.
+          </p>
+          <p className="text-center text-gray-500 text-sm">
+            Real client reviews will be added here as I complete projects. Be among my first clients!
+          </p>
+        </div>
+        
         {/* Fiverr Reviews CTA */}
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <p className="text-gray-400 mb-4">
-            Want to see more reviews?
+            Ready to work together?
           </p>
           <motion.a
             href="https://www.fiverr.com/s/6YroEYL"
@@ -164,7 +182,7 @@ export function Testimonials() {
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/30"
           >
             <Star className="w-5 h-5 fill-white" />
-            View All Reviews on Fiverr
+            Hire Me on Fiverr
           </motion.a>
         </div>
       </div>
