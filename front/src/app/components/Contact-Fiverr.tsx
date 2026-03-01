@@ -256,6 +256,16 @@ export function Contact() {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="mt-32 pt-12 border-t border-gray-800 text-center">
+          <p className="text-gray-600">
+            © 2026 Nojus Tautavicius. All rights reserved.
+          </p>
+          <div className="mt-4 text-gray-700 text-sm">
+            Made with ❤️ and lots of Redbulls
+          </div>
+        </div>
       </div>
     </section>
   );
