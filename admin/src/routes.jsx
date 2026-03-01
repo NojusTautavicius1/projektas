@@ -15,6 +15,7 @@ import { FeatureBoxesManagement } from "@/pages/dashboard/content";
 import { MessagesList } from "@/pages/dashboard/messages/messages-list";
 import { ActivityLog } from "@/pages/dashboard/activity/activity-log";
 import { ProjectsManagement } from "@/pages/dashboard/projects/projects-management";
+import { ServicesManagement } from "@/pages/dashboard/services/services-management";
 import { SignIn, SignUp, SignOut } from "@/pages/auth";
 
 const icon = {
@@ -48,6 +49,12 @@ export const routes = [
         name: "Projektai",
         path: "/projektai",
         element: <ProjectsManagement />,
+      },
+      {
+        icon: <Squares2X2Icon {...icon} />,
+        name: "Services",
+        path: "/services",
+        element: <ServicesManagement />,
       },
       {
         icon: <EnvelopeIcon {...icon} />,

@@ -95,6 +95,33 @@ CREATE TABLE `projects` (
 
 INSERT INTO `projects` VALUES (1,'Calculator','Modern design calculator with dark and light theme toggle. Implements all basic mathematical operations with beautiful animated UI.','/images/projects/project-1769163901406-50285141.png','/projektas/skaiciuotuvas/index.html','https://github.com/NojusTautavicius1/AtsiskaitomiejiDarbai/tree/master/skaiciuotuvas','JavaScript,HTML5,CSS3,Animations','Frontend',1,'2026-01-20 00:00:00'),(2,'Calendar Generator','Dynamic calendar generator with JavaScript. Automatically generates calendar for any year and month with weekdays and full functionality.','/images/projects/project-1769165359426-420697133.png','/projektas/kalendorius/kalendorius.html','https://github.com/NojusTautavicius1/AtsiskaitomiejiDarbai/tree/master/kalendorius','JavaScript,DOM,Date API','Frontend',2,'2026-01-21 00:00:00'),(3,'Express CRUD System','Full-stack address management system with MySQL database. Implements complete CRUD functionality, MVC architecture and RESTful API.','/images/projects/project-1769165662708-635348042.png',NULL,'https://github.com/NojusTautavicius1/AtsiskaitomiejiDarbai/tree/master/express_crud_adresai','Node.js,Express,MySQL,EJS,REST API','Full Stack',3,'2026-01-21 00:00:00'),(4,'React Learning App','React learning project with component architecture and modern hooks. Practical React.js demonstration.','/images/projects/project-1769166153713-781656743.png',NULL,'https://github.com/NojusTautavicius1/AtsiskaitomiejiDarbai/tree/master/reactas','React,JSX,Components,Hooks','Frontend',4,'2026-01-21 00:00:00'),(5,'Text Processing System','JavaScript application for text processing - string manipulation, search, replacement and formatting. Various algorithms for text analysis.','/images/projects/project-1769166458817-394779570.png','/projektas/Tekstoapdorojimas/index.html','https://github.com/NojusTautavicius1/AtsiskaitomiejiDarbai/tree/master/Tekstoapdorojimas','JavaScript,String Methods,Algorithms','Frontend',5,'2026-01-22 00:00:00'),(6,'Portfolio CMS','This portfolio project with admin panel and full-stack architecture. Implements content management, authentication, and dynamic content.','/images/projects/project-1769166622075-102421369.png','http://localhost:5173','https://github.com/NojusTautavicius1/AtsiskaitomiejiDarbai/tree/master/projektas','React,Node.js,MySQL,JWT,Vite','Full Stack',6,'2026-01-20 00:00:00'),(7,'Weather App','A modern and functional web platform built with web programming technologies. Features convenient design, clear navigation and showcases my programming skills and creativity.','/images/projects/project-1772182031407-591097393.png','https://nojustautavicius1.github.io/Kodo-virtuozai-2026/orai-lietuvoje/index.html','https://github.com/NojusTautavicius1/Kodo-virtuozai-2026','HTML5,CSS3,JavaScript','Full Stack',0,'2026-02-27 10:47:11');
 
+DROP TABLE IF EXISTS `services`;
+CREATE TABLE `services` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `icon` varchar(50) DEFAULT 'Zap',
+  `price` varchar(20) NOT NULL,
+  `delivery_time` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `features` text NOT NULL COMMENT 'JSON array of features',
+  `revisions` varchar(50) NOT NULL,
+  `is_popular` tinyint(1) DEFAULT 0,
+  `is_active` tinyint(1) DEFAULT 1,
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 0,
+  `color` varchar(50) DEFAULT 'from-blue-500 to-cyan-500',
+  `border_color` varchar(50) DEFAULT 'border-blue-500/30',
+  `bg_color` varchar(50) DEFAULT 'bg-blue-500/10',
+  `icon_color` varchar(50) DEFAULT 'text-blue-400',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `services` VALUES 
+(1,'Basic','Zap','$299','3-5 days','Perfect for landing pages and simple websites','[\"Single page website or landing page\",\"Responsive design (mobile + desktop)\",\"Contact form integration\",\"Basic SEO optimization\",\"1 revision included\",\"Source code included\"]','1 revision',0,1,1,'from-blue-500 to-cyan-500','border-blue-500/30','bg-blue-500/10','text-blue-400','2026-03-01 00:00:00','2026-03-01 00:00:00'),
+(2,'Standard','Star','$799','7-10 days','Full-featured websites with custom functionality','[\"Up to 5 pages or sections\",\"Custom design & animations\",\"Database integration (if needed)\",\"Admin panel for content management\",\"API integration\",\"Advanced SEO & performance optimization\",\"3 revisions included\",\"30 days support\"]','3 revisions',1,1,2,'from-blue-600 to-blue-700','border-blue-600/30','bg-blue-600/10','text-blue-500','2026-03-01 00:00:00','2026-03-01 00:00:00'),
+(3,'Premium','Crown','$1,999','14-21 days','Complete web applications with full-stack features','[\"Unlimited pages & sections\",\"Full-stack web application\",\"User authentication & authorization\",\"Payment gateway integration\",\"Real-time features (chat, notifications)\",\"Third-party API integrations\",\"Advanced admin dashboard\",\"Database design & optimization\",\"Unlimited revisions\",\"90 days support & maintenance\"]','Unlimited revisions',0,1,3,'from-blue-700 to-blue-800','border-blue-700/30','bg-blue-700/10','text-blue-600','2026-03-01 00:00:00','2026-03-01 00:00:00');
+
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

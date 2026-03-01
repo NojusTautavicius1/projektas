@@ -6,6 +6,7 @@ import contactRouter from './contact.js';
 import contentRouter from './content.js';
 import featureBoxesRouter from './featureBoxes.js';
 import activityRouter from './activity.js';
+import servicesRouter from './services.js';
 
 const router = express.Router();
 
@@ -41,5 +42,8 @@ router.use('/api/feature-boxes', featureBoxesRouter);
 
 // pajungiame activity maršrutus
 router.use('/api/activity', activityRouter);
+
+// pajungiame services maršrutus
+router.use('/api/services', servicesRouter);
 
 export default router;
