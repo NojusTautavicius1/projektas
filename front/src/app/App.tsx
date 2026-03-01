@@ -8,6 +8,7 @@ import { FloatingElements } from "./components/FloatingElements";
 import { ParticleBackground } from "./components/ParticleBackground";
 import { Navigation } from "./components/Navigation";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ScrollProgress } from "./components/ScrollProgress";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 
@@ -58,6 +59,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
+      <ScrollProgress />
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-gray-950 to-zinc-950 text-white overflow-x-hidden relative">
         <ParticleBackground />
         <FloatingElements />

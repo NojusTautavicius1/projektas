@@ -1,6 +1,7 @@
 // Testimonials Component for Social Proof
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { ScrollReveal } from "./ScrollReveal";
 
 interface Testimonial {
   name: string;
@@ -68,21 +69,24 @@ export function Testimonials() {
     <section id="testimonials" className="py-20 px-6 bg-slate-900/30">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
-            <span className="text-blue-400 font-semibold flex items-center gap-2 justify-center">
-              <Star className="w-4 h-4 fill-blue-400" />
-              Sample Reviews
-            </span>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
+              <span className="text-blue-400 font-semibold flex items-center gap-2 justify-center">
+                <Star className="w-4 h-4 fill-blue-400" />
+                Sample Reviews
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Building My Reputation</h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              These are sample testimonials. Real client reviews coming soon as I complete projects!
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Building My Reputation</h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            These are sample testimonials. Real client reviews coming soon as I complete projects!
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Overall Stats */}
-        <div className="flex flex-wrap gap-8 justify-center mb-16">
+        <ScrollReveal delay={0.2}>
+          <div className="flex flex-wrap gap-8 justify-center mb-16">
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               {[...Array(5)].map((_, i) => (
@@ -103,17 +107,37 @@ export function Testimonials() {
             <div className="text-sm text-gray-500 mt-1">Commitment Goal</div>
             <div className="text-xs text-gray-600">(Quality first)</div>
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: { 
+                  opacity: 1, 
+                  y: 0,
+                  transition: {
+                    duration: 0.6,
+                    ease: [0.21, 0.47, 0.32, 0.98]
+                  }
+                }
+              }}
               className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/30 transition-all relative"
             >
               {/* Sample Badge */}
@@ -156,20 +180,23 @@ export function Testimonials() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Disclaimer */}
-        <div className="mt-12 bg-slate-900/50 border border-blue-500/30 rounded-xl p-6 max-w-3xl mx-auto">
+        <ScrollReveal delay={0.3}>
+          <div className="mt-12 bg-slate-900/50 border border-blue-500/30 rounded-xl p-6 max-w-3xl mx-auto">
           <p className="text-center text-gray-400 mb-2">
             <span className="text-blue-400 font-semibold">Note:</span> The testimonials above are sample reviews representing the quality of service I aim to provide.
           </p>
           <p className="text-center text-gray-500 text-sm">
             Real client reviews will be added here as I complete projects. Be among my first clients!
           </p>
-        </div>
+          </div>
+        </ScrollReveal>
         
         {/* Fiverr Reviews CTA */}
-        <div className="mt-8 text-center">
+        <ScrollReveal delay={0.4}>
+          <div className="mt-8 text-center">
           <p className="text-gray-400 mb-4">
             Ready to work together?
           </p>
@@ -184,7 +211,8 @@ export function Testimonials() {
             <Star className="w-5 h-5 fill-white" />
             Hire Me on Fiverr
           </motion.a>
-        </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

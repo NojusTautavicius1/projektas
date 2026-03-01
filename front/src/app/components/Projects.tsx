@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ScrollReveal } from "./ScrollReveal";
 
 interface Project {
   id: number;
@@ -38,29 +39,37 @@ export function Projects() {
   return (
     <section id="projects" className="py-32 px-6 relative">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">
-            Projects
-          </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            My created projects and contributions to open source. I enjoy building things that solve problems and learning new technologies along the way.
-          </p>
-        </motion.div>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">
+              Projects
+            </h2>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+              My created projects and contributions to open source. I enjoy building things that solve problems and learning new technologies along the way.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {loading ? (
           <div className="text-center text-gray-400">Kraunami projektai...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+          >
             {projects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
     </section>
@@ -98,10 +107,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { 
+          opacity: 1, 
+          y: 0,
+          transition: {
+            duration: 0.6,
+            ease: [0.21, 0.47, 0.32, 0.98]
+          }
+        }
+      }}
       whileHover={{ y: -6 }}
       className="group relative"
     >

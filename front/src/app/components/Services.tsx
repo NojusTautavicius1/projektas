@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Check, Star, Clock, Zap, Crown, Package, Rocket, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
+import { ScrollReveal } from "./ScrollReveal";
 
 interface ServicePackage {
   id: number;
@@ -84,28 +85,49 @@ export function Services() {
     <section id="services" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
-            <span className="text-blue-400 font-semibold">Service Packages</span>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
+              <span className="text-blue-400 font-semibold">Service Packages</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Package</h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Transparent pricing, fast delivery, and production-ready code. All packages include modern tech stack (React, Node.js, TypeScript).
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Package</h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Transparent pricing, fast delivery, and production-ready code. All packages include modern tech stack (React, Node.js, TypeScript).
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Packages Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <motion.div 
+          className="grid md:grid-cols-3 gap-8 mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.15
+              }
+            }
+          }}
+        >
           {packages.map((pkg, index) => {
             const IconComponent = iconMap[pkg.icon] || Zap;
             
             return (
               <motion.div
                 key={pkg.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={{
+                  hidden: { opacity: 0, y: 50 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      duration: 0.6,
+                      ease: [0.21, 0.47, 0.32, 0.98]
+                    }
+                  }
+                }}
                 className={`relative bg-slate-900/50 border ${
                   pkg.is_popular ? "border-purple-500/50 shadow-lg shadow-purple-500/20" : pkg.border_color
                 } rounded-2xl p-8 hover:shadow-2xl transition-all ${
@@ -167,39 +189,43 @@ export function Services() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Additional Info */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
-            <div className="text-gray-400">Money-Back Guarantee</div>
+        <ScrollReveal delay={0.3}>
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
+              <div className="text-gray-400">Money-Back Guarantee</div>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-center">
+              <div className="text-3xl font-bold text-green-400 mb-2">24/7</div>
+              <div className="text-gray-400">Communication Available</div>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-center">
+              <div className="text-3xl font-bold text-purple-400 mb-2">Fast</div>
+              <div className="text-gray-400">Express Delivery Available</div>
+            </div>
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-green-400 mb-2">24/7</div>
-            <div className="text-gray-400">Communication Available</div>
-          </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-purple-400 mb-2">Fast</div>
-            <div className="text-gray-400">Express Delivery Available</div>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* Custom Project CTA */}
-        <div className="mt-12 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-bold mb-3">Need Something Custom?</h3>
-          <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
-            Have a unique project in mind? Let's discuss your requirements and I'll create a custom package tailored to your needs.
-          </p>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/30"
-          >
-            Request Custom Quote
-          </motion.a>
-        </div>
+        <ScrollReveal delay={0.4}>
+          <div className="mt-12 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-2xl p-8 text-center">
+            <h3 className="text-2xl font-bold mb-3">Need Something Custom?</h3>
+            <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
+              Have a unique project in mind? Let's discuss your requirements and I'll create a custom package tailored to your needs.
+            </p>
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/30"
+            >
+              Request Custom Quote
+            </motion.a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

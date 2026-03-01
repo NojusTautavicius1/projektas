@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Code2, Palette, Zap, Rocket, Layers, Shield, Gauge, Smartphone, Code, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./Spinner";
+import { ScrollReveal } from "./ScrollReveal";
 
 const iconMap: { [key: string]: any } = {
   Code2, Palette, Zap, Rocket, Layers, Shield, Gauge, Smartphone, Code, Sparkles
@@ -60,23 +61,12 @@ export function About() {
         <LoadingScreen message="Loading..." />
       ) : (
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">{content.title}</h2>
-        </motion.div>
+        <ScrollReveal>
+          <h2 className="text-4xl md:text-5xl mb-16 text-center font-serif font-semibold text-gray-100">{content.title}</h2>
+        </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <ScrollReveal delay={0.2}>
             <div className="relative">
               <div className="relative aspect-square rounded-lg bg-gradient-to-br from-slate-800 via-gray-800 to-zinc-800 border-2 border-blue-500/40 overflow-hidden flex items-center justify-center shadow-xl shadow-blue-500/20">
                 {content.image ? (
@@ -90,40 +80,36 @@ export function About() {
                 )}
               </div>
             </div>
-          </motion.div>
+          </ScrollReveal>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
-            <p className="text-gray-300 text-lg leading-relaxed">
-              {content.content}
-            </p>
+          <ScrollReveal delay={0.3}>
+            <div className="space-y-6">
+              <p className="text-gray-300 text-lg leading-relaxed">
+                {content.content}
+              </p>
 
-            <div className={`grid gap-4 pt-8 ${boxes.length === 3 ? 'grid-cols-3' : boxes.length === 2 ? 'grid-cols-2' : boxes.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
-                {boxes.map((item, index) => {
-                  const IconComponent = iconMap[item.icon] || Code2;
-                  return (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.45, delay: index * 0.06 }}
-                      whileHover={{ y: -3 }}
-                      className="text-center p-4 rounded-lg bg-gradient-to-br from-slate-900/80 to-zinc-900/80 border border-slate-800 hover:border-blue-500/40 transition-all shadow-md hover:shadow-blue-500/10"
-                      title={item.description || item.label}
-                    >
-                      <IconComponent className="w-6 h-6 mx-auto mb-2 text-slate-400" />
-                      <p className="text-sm text-slate-300">{item.label}</p>
-                    </motion.div>
-                  );
-                })}
+              <div className={`grid gap-4 pt-8 ${boxes.length === 3 ? 'grid-cols-3' : boxes.length === 2 ? 'grid-cols-2' : boxes.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
+                  {boxes.map((item, index) => {
+                    const IconComponent = iconMap[item.icon] || Code2;
+                    return (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.45, delay: index * 0.06 }}
+                        whileHover={{ y: -3 }}
+                        className="text-center p-4 rounded-lg bg-gradient-to-br from-slate-900/80 to-zinc-900/80 border border-slate-800 hover:border-blue-500/40 transition-all shadow-md hover:shadow-blue-500/10"
+                        title={item.description || item.label}
+                      >
+                        <IconComponent className="w-6 h-6 mx-auto mb-2 text-slate-400" />
+                        <p className="text-sm text-slate-300">{item.label}</p>
+                      </motion.div>
+                    );
+                  })}
+              </div>
             </div>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </div>
       )}

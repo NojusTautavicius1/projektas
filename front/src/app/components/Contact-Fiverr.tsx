@@ -1,6 +1,7 @@
 // Fiverr-optimized Contact Component
 import { useState, useEffect } from "react";
 import { CheckCircle, Mail, MapPin, Clock, Star } from "lucide-react";
+import { ScrollReveal } from "./ScrollReveal";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -96,19 +97,22 @@ export function Contact() {
     <section id="contact" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
-            <span className="text-blue-400 font-semibold">Let's Work Together</span>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
+              <span className="text-blue-400 font-semibold">Let's Work Together</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Get Your Free Quote</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Response within <span className="text-blue-400 font-semibold">2 hours</span> • Free consultation • No commitment required
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Get Your Free Quote</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Response within <span className="text-blue-400 font-semibold">2 hours</span> • Free consultation • No commitment required
-          </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left Column - Quick Contact Options */}
-          <div>
+          <ScrollReveal delay={0.2}>
+            <div>
             {/* Fiverr CTA Card */}
             <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-8 mb-8">
               <div className="flex items-center gap-3 mb-4">
@@ -156,10 +160,12 @@ export function Contact() {
                 <div className="text-sm text-gray-400">Client Rating</div>
               </div>
             </div>
-          </div>
+            </div>
+          </ScrollReveal>
 
           {/* Right Column - Contact Form */}
-          <div>
+          <ScrollReveal delay={0.3}>
+            <div>
             <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-2">Send Me a Message</h3>
               <p className="text-gray-400 mb-6">
@@ -255,17 +261,20 @@ export function Contact() {
               </form>
             </div>
           </div>
+          </ScrollReveal>
         </div>
 
         {/* Footer */}
-        <div className="mt-32 pt-12 border-t border-gray-800 text-center">
-          <p className="text-gray-600">
-            © 2026 Nojus Tautavicius. All rights reserved.
-          </p>
-          <div className="mt-4 text-gray-700 text-sm">
-            Made with ❤️ and lots of Redbulls
+        <ScrollReveal delay={0.4}>
+          <div className="mt-32 pt-12 border-t border-gray-800 text-center">
+            <p className="text-gray-600">
+              © 2026 Nojus Tautavicius. All rights reserved.
+            </p>
+            <div className="mt-4 text-gray-700 text-sm">
+              Made with ❤️ and lots of Redbulls
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
