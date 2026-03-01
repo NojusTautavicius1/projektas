@@ -102,7 +102,7 @@ export function Contact() {
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Get Your Free Quote</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Response within <span className="text-green-400 font-semibold">2 hours</span> • Free consultation • No commitment required
+            Response within <span className="text-blue-400 font-semibold">2 hours</span> • Free consultation • No commitment required
           </p>
         </div>
 
@@ -110,9 +110,9 @@ export function Contact() {
           {/* Left Column - Quick Contact Options */}
           <div>
             {/* Fiverr CTA Card */}
-            <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/30 rounded-2xl p-8 mb-8">
+            <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-8 mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <Star className="w-8 h-8 text-yellow-400 fill-yellow-400" />
+                <Star className="w-8 h-8 text-blue-400 fill-blue-400" />
                 <h3 className="text-2xl font-bold">Hire on Fiverr</h3>
               </div>
               <p className="text-gray-300 mb-6">
@@ -122,7 +122,7 @@ export function Contact() {
                 href="https://www.fiverr.com/s/6YroEYL"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all shadow-lg shadow-green-500/30"
+                className="inline-block px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/30"
               >
                 View Fiverr Profile →
               </a>

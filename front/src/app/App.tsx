@@ -4,7 +4,6 @@ import { Testimonials } from "./components/Testimonials";
 import { Services } from "./components/Services";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact-Fiverr";
-import { StickyFiverrButton } from "./components/StickyFiverrButton";
 import { FloatingElements } from "./components/FloatingElements";
 import { ParticleBackground } from "./components/ParticleBackground";
 import { Navigation } from "./components/Navigation";
@@ -42,8 +41,6 @@ export default function App() {
           <ErrorBoundary><Projects /></ErrorBoundary>
           <ErrorBoundary><Contact /></ErrorBoundary>
         </div>
-        
-        <StickyFiverrButton />
       </div>
     </ErrorBoundary>
   );

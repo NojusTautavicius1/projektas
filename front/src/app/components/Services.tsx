@@ -57,10 +57,10 @@ export function Services() {
       ],
       revisions: "3 revisions",
       popular: true,
-      color: "from-purple-500 to-pink-500",
-      borderColor: "border-purple-500/30",
-      bgColor: "bg-purple-500/10",
-      iconColor: "text-purple-400"
+      color: "from-blue-600 to-blue-700",
+      borderColor: "border-blue-600/30",
+      bgColor: "bg-blue-600/10",
+      iconColor: "text-blue-500"
     },
     {
       name: "Premium",
@@ -81,10 +81,10 @@ export function Services() {
         "90 days support & maintenance"
       ],
       revisions: "Unlimited revisions",
-      color: "from-yellow-500 to-orange-500",
-      borderColor: "border-yellow-500/30",
-      bgColor: "bg-yellow-500/10",
-      iconColor: "text-yellow-400"
+      color: "from-blue-700 to-blue-800",
+      borderColor: "border-blue-700/30",
+      bgColor: "bg-blue-700/10",
+      iconColor: "text-blue-600"
     }
   ];
 

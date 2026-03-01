@@ -128,7 +128,7 @@ export function Hero() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg shadow-lg shadow-green-500/30 transition-all flex items-center gap-2"
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
             >
               <Star className="w-5 h-5 fill-white" />
               Hire on Fiverr
@@ -137,7 +137,7 @@ export function Hero() {
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-transparent border-2 border-slate-700 hover:border-slate-600 text-slate-200 font-semibold rounded-lg transition-all"
+              className="px-8 py-4 bg-transparent border-2 border-blue-500/50 hover:border-blue-500 text-slate-200 font-semibold rounded-lg transition-all"
             >
               Get Free Quote
             </motion.a>

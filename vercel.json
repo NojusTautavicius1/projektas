@@ -1,23 +1,21 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
   "builds": [
     {
       "src": "index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/import-db.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/import-db",
-      "dest": "/api/import-db.js"
+      "src": "/api/(.*)",
+      "dest": "/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.js"
+      "dest": "/front/dist/index.html"
     }
-  ]
+  ],
+  "outputDirectory": "front/dist"
 }
