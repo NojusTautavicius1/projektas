@@ -54,9 +54,6 @@ const frontDistPath = path.join(__dirname, '../front/dist');
 if (fs.existsSync(frontDistPath)) {
   app.use(express.static(frontDistPath));
 }
-    }
-  }));
-}
 
 app.use('/', indexRouter);
 
