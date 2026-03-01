@@ -75,6 +75,27 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     return '✨';
   };
 
+  // Add timestamp to prevent caching issues
+  const getDemoUrl = (url: string) => {
+    if (!url) return url;
+    
+    // If it's a relative path, convert to absolute URL
+    let fullUrl = url;
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      // Make it absolute URL based on current origin
+      fullUrl = url.startsWith('/') ? `${window.location.origin}${url}` : `${window.location.origin}/${url}`;
+    }
+    
+    const separator = fullUrl.includes('?') ? '&' : '?';
+    return `${fullUrl}${separator}v=${Date.now()}`;
+  };
+
+  // Check if URL should open in new tab (external links)
+  const isExternalUrl = (url?: string) => {
+    if (!url) return false;
+    return url.startsWith('http://') || url.startsWith('https://');
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -127,11 +148,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div className="flex gap-4">
               {project.demo_url && (
                 <motion.a
-                  href={project.demo_url}
+                  href={getDemoUrl(project.demo_url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={(e) => {
+                    // Force reload without cache
+                    e.preventDefault();
+                    window.open(getDemoUrl(project.demo_url), '_blank', 'noopener,noreferrer');
+                  }}
                   className="flex items-center gap-2 text-sm text-slate-200 bg-slate-900 border-2 border-blue-500 px-3 py-1 rounded-md hover:bg-slate-800 hover:border-blue-400 transition-all shadow-md"
                 >
                   <ExternalLink className="w-4 h-4" />
