@@ -48,7 +48,10 @@ export function Services() {
       } finally {
         setLoading(false);
       }
-    }, []);
+    };
+
+    fetchServices();
+  }, []);
 
   if (loading) {
     return (
@@ -60,16 +63,23 @@ export function Services() {
     );
   }
 
-    fetchServices();
-  }, []);
-
   return (
     <section id="services" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
-            <span className="text-blue-4{
+            <span className="text-blue-400 font-semibold">Service Packages</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Package</h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Transparent pricing, fast delivery, and production-ready code. All packages include modern tech stack (React, Node.js, TypeScript).
+          </p>
+        </div>
+
+        {/* Packages Grid */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {packages.map((pkg, index) => {
             const IconComponent = iconMap[pkg.icon] || Zap;
             
             return (
@@ -139,17 +149,7 @@ export function Services() {
                 </motion.a>
               </motion.div>
             );
-          }     href="#contact"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`block w-full py-3 bg-gradient-to-r ${pkg.color} text-white font-semibold rounded-lg text-center transition-all ${
-                  pkg.popular ? "shadow-lg shadow-purple-500/50" : ""
-                }`}
-              >
-                Get Started
-              </motion.a>
-            </motion.div>
-          ))}
+          })}
         </div>
 
         {/* Additional Info */}
