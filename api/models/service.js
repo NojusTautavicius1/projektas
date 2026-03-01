@@ -11,8 +11,9 @@ export const selectAll = async () => {
       features: JSON.parse(row.features || '[]')
     }));
   } catch (err) {
-    console.log(err);
-    return null;
+    console.log('Service model error:', err);
+    // Return empty array if table doesn't exist yet
+    return [];
   }
 };
 
@@ -25,8 +26,9 @@ export const selectActive = async () => {
       features: JSON.parse(row.features || '[]')
     }));
   } catch (err) {
-    console.log(err);
-    return null;
+    console.log('Service model error:', err);
+    // Return empty array if table doesn't exist yet
+    return [];
   }
 };
 
@@ -38,7 +40,7 @@ export const selectById = async (id) => {
     }
     return rows[0];
   } catch (err) {
-    console.log(err);
+    console.log('Service model error:', err);
     return null;
   }
 };

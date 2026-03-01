@@ -63,6 +63,23 @@ export function Services() {
     );
   }
 
+  // If no services, show default message
+  if (packages.length === 0) {
+    return (
+      <section id="services" className="py-20 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
+            <span className="text-blue-400 font-semibold">Service Packages</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Package</h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Service packages coming soon. Contact me for custom quotes in the meantime!
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="services" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">

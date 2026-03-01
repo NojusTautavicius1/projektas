@@ -3,14 +3,24 @@ import { autoBackup } from "../utils/auto-backup.js";
 
 // Get all services (admin)
 export const index = async (req, res, next) => {
-  let services = await serviceModel.selectAll();
-  res.json(services);
+  try {
+    let services = await serviceModel.selectAll();
+    res.json(services || []);
+  } catch (error) {
+    console.error('Services index error:', error);
+    res.status(500).json({ message: "Error fetching services", error: error.message });
+  }
 };
 
 // Get active services only (public)
 export const active = async (req, res, next) => {
-  let services = await serviceModel.selectActive();
-  res.json(services);
+  try {
+    let services = await serviceModel.selectActive();
+    res.json(services || []);
+  } catch (error) {
+    console.error('Services active error:', error);
+    res.status(500).json({ message: "Error fetching services", error: error.message });
+  }
 };
 
 // Get one service
