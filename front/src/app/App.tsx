@@ -31,6 +31,25 @@ export default function App() {
     };
   }, []);
 
+  // Remove loading screen after component mounts
+  useEffect(() => {
+    const removeLoadingScreen = () => {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.opacity = '0';
+        loadingScreen.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => loadingScreen.remove(), 500);
+      }
+    };
+
+    // Wait for document to be ready and give React time to render
+    if (document.readyState === 'complete') {
+      setTimeout(removeLoadingScreen, 300);
+    } else {
+      window.addEventListener('load', () => setTimeout(removeLoadingScreen, 300));
+    }
+  }, []);
+
   const isLogin = path === "/login" || path === "/login/";
 
   if (isLogin) {
