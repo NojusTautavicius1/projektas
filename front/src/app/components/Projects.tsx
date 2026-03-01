@@ -49,7 +49,7 @@ export function Projects() {
             Projektai
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Mano sukurti projektai ir atsiskaityomieji darbai.
+            Mano sukurti projektai ir atsiskaitomieji darbai.
           </p>
         </motion.div>
 
