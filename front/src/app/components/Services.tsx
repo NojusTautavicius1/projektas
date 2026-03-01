@@ -32,8 +32,90 @@ const iconMap: Record<string, any> = {
   Shield,
 };
 
+// Default packages as fallback
+const defaultPackages: ServicePackage[] = [
+  {
+    id: 1,
+    name: "Basic",
+    icon: "Zap",
+    price: "$299",
+    delivery_time: "3-5 days",
+    description: "Perfect for landing pages and simple websites",
+    features: [
+      "Single page website or landing page",
+      "Responsive design (mobile + desktop)",
+      "Contact form integration",
+      "Basic SEO optimization",
+      "1 revision included",
+      "Source code included"
+    ],
+    revisions: "1 revision",
+    is_popular: false,
+    is_active: true,
+    sort_order: 1,
+    color: "from-blue-500 to-cyan-500",
+    border_color: "border-blue-500/30",
+    bg_color: "bg-blue-500/10",
+    icon_color: "text-blue-400"
+  },
+  {
+    id: 2,
+    name: "Standard",
+    icon: "Star",
+    price: "$799",
+    delivery_time: "7-10 days",
+    description: "Full-featured websites with custom functionality",
+    features: [
+      "Up to 5 pages or sections",
+      "Custom design & animations",
+      "Database integration (if needed)",
+      "Admin panel for content management",
+      "API integration",
+      "Advanced SEO & performance optimization",
+      "3 revisions included",
+      "30 days support"
+    ],
+    revisions: "3 revisions",
+    is_popular: true,
+    is_active: true,
+    sort_order: 2,
+    color: "from-purple-600 to-pink-600",
+    border_color: "border-purple-500/30",
+    bg_color: "bg-purple-500/10",
+    icon_color: "text-purple-400"
+  },
+  {
+    id: 3,
+    name: "Premium",
+    icon: "Crown",
+    price: "$1,999",
+    delivery_time: "14-21 days",
+    description: "Complete web applications with full-stack features",
+    features: [
+      "Unlimited pages & sections",
+      "Full-stack web application",
+      "User authentication & authorization",
+      "Payment gateway integration",
+      "Real-time features (chat, notifications)",
+      "Third-party API integrations",
+      "Advanced admin dashboard",
+      "Database design & optimization",
+      "Unlimited revisions",
+      "90 days support & maintenance"
+    ],
+    revisions: "Unlimited revisions",
+    is_popular: false,
+    is_active: true,
+    sort_order: 3,
+    color: "from-blue-700 to-blue-900",
+    border_color: "border-blue-700/30",
+    bg_color: "bg-blue-700/10",
+    icon_color: "text-blue-500"
+  }
+];
+
 export function Services() {
-  const [packages, setPackages] = useState<ServicePackage[]>([]);
+  const [packages, setPackages] = useState<ServicePackage[]>(defaultPackages);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -42,7 +124,11 @@ export function Services() {
         const response = await fetch("/api/services/active");
         if (response.ok) {
           const data = await response.json();
-          setPackages(data);
+          // Only use API data if it has valid services with prices
+          if (data && data.length > 0 && data[0].price && data[0].price !== "0") {
+            setPackages(data);
+          }
+          // Otherwise keep defaultPackages
         }
       } catch (error) {
         console.error("Failed to fetch services:", error);
@@ -59,23 +145,6 @@ export function Services() {
       <section id="services" className="py-20 px-6">
         <div className="max-w-7xl mx-auto text-center text-gray-400">
           Loading services...
-        </div>
-      </section>
-    );
-  }
-
-  // If no services, show default message
-  if (packages.length === 0) {
-    return (
-      <section id="services" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
-            <span className="text-blue-400 font-semibold">Service Packages</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Package</h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Service packages coming soon. Contact me for custom quotes in the meantime!
-          </p>
         </div>
       </section>
     );
