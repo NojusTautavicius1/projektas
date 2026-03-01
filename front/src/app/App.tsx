@@ -1,8 +1,10 @@
-import { Hero } from "./components/Hero";
+import { Hero } from "./components/Hero-Fiverr";
 import { About } from "./components/About";
+import { Testimonials } from "./components/Testimonials";
+import { Services } from "./components/Services";
 import { Projects } from "./components/Projects";
-import { Skills } from "./components/Skills";
-import { Contact } from "./components/Contact";
+import { Contact } from "./components/Contact-Fiverr";
+import { StickyFiverrButton } from "./components/StickyFiverrButton";
 import { FloatingElements } from "./components/FloatingElements";
 import { ParticleBackground } from "./components/ParticleBackground";
 import { Navigation } from "./components/Navigation";
@@ -35,10 +37,13 @@ export default function App() {
           <Navigation />
           <ErrorBoundary><Hero /></ErrorBoundary>
           <ErrorBoundary><About /></ErrorBoundary>
+          <ErrorBoundary><Testimonials /></ErrorBoundary>
+          <ErrorBoundary><Services /></ErrorBoundary>
           <ErrorBoundary><Projects /></ErrorBoundary>
-          <ErrorBoundary><Skills /></ErrorBoundary>
           <ErrorBoundary><Contact /></ErrorBoundary>
         </div>
+        
+        <StickyFiverrButton />
       </div>
     </ErrorBoundary>
   );

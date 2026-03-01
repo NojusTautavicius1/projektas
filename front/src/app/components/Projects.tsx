@@ -46,10 +46,10 @@ export function Projects() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">
-            Projektai
+            Projects
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Mano sukurti projektai ir atsiskaitomieji darbai.
+            My created projects and contributions to open source. I enjoy building things that solve problems and learning new technologies along the way.
           </p>
         </motion.div>
 
