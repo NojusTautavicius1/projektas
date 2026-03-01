@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, Menu, X } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -13,6 +13,7 @@ const navItems = [
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +53,7 @@ export function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto pl-20 pr-6 py-4">
+      <div className="max-w-7xl mx-auto px-6 md:pl-20 md:pr-6 py-4">
         <div className="flex items-center justify-between">
           <motion.a
             href="#home"
@@ -115,7 +116,72 @@ export function Navigation() {
               </motion.a>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden mt-4 pb-4 space-y-3"
+          >
+            {navItems.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-gray-300 hover:text-gray-100 transition-colors py-2"
+              >
+                {item.name}
+              </a>
+            ))}
+            
+            <div className="pt-3 space-y-2">
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full px-4 py-2 bg-slate-900 border-2 border-blue-500 text-slate-200 rounded-md text-sm hover:bg-slate-800 hover:border-blue-400 transition-all text-center"
+              >
+                Let's Talk
+              </a>
+
+              {user ? (
+                <>
+                  <div className="flex items-center gap-2 px-3 py-2 bg-white/5 border border-gray-700 rounded-md">
+                    <User className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm text-gray-300">{user.nickname || user.email}</span>
+                  </div>
+                  <button
+                    onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-red-600/80 text-white rounded-md text-sm hover:bg-red-600 transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <a
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full px-4 py-2 bg-gray-100 text-black rounded-md text-sm hover:bg-gray-200 transition-colors text-center"
+                >
+                  Log In
+                </a>
+              )}
+            </div>
+          </motion.div>
+        )}
       </div>
     </motion.nav>
   );

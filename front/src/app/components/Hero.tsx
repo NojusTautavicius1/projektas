@@ -34,7 +34,7 @@ export function Hero() {
       {loading ? (
         <LoadingScreen message="Loading..." />
       ) : (
-      <div className="max-w-5xl mx-auto text-center translate-x-[15px]">
+      <div className="max-w-5xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
