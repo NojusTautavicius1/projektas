@@ -61,12 +61,12 @@ export function About() {
         <LoadingScreen message="Loading..." />
       ) : (
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
+        <ScrollReveal animation="scale-up">
           <h2 className="text-4xl md:text-5xl mb-16 text-center font-serif font-semibold text-gray-100">{content.title}</h2>
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <ScrollReveal delay={0.2}>
+          <ScrollReveal delay={0.2} animation="fade-left">
             <div className="relative">
               <div className="relative aspect-square rounded-lg bg-gradient-to-br from-slate-800 via-gray-800 to-zinc-800 border-2 border-blue-500/40 overflow-hidden flex items-center justify-center shadow-xl shadow-blue-500/20">
                 {content.image ? (
@@ -82,7 +82,7 @@ export function About() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.3}>
+          <ScrollReveal delay={0.3} animation="fade-right">
             <div className="space-y-6">
               <p className="text-gray-300 text-lg leading-relaxed">
                 {content.content}

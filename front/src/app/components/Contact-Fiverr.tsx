@@ -97,7 +97,7 @@ export function Contact() {
     <section id="contact" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <ScrollReveal>
+        <ScrollReveal animation="rotate-in">
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
               <span className="text-blue-400 font-semibold">Let's Work Together</span>
@@ -111,7 +111,7 @@ export function Contact() {
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left Column - Quick Contact Options */}
-          <ScrollReveal delay={0.2}>
+          <ScrollReveal delay={0.2} animation="fade-left">
             <div>
             {/* Fiverr CTA Card */}
             <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-8 mb-8">
@@ -164,7 +164,7 @@ export function Contact() {
           </ScrollReveal>
 
           {/* Right Column - Contact Form */}
-          <ScrollReveal delay={0.3}>
+          <ScrollReveal delay={0.3} animation="fade-right">
             <div>
             <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-2">Send Me a Message</h3>

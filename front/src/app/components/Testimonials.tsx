@@ -69,7 +69,7 @@ export function Testimonials() {
     <section id="testimonials" className="py-20 px-6 bg-slate-900/30">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <ScrollReveal>
+        <ScrollReveal animation="slide-up">
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
               <span className="text-blue-400 font-semibold flex items-center gap-2 justify-center">
@@ -85,7 +85,7 @@ export function Testimonials() {
         </ScrollReveal>
 
         {/* Overall Stats */}
-        <ScrollReveal delay={0.2}>
+        <ScrollReveal delay={0.2} animation="scale">
           <div className="flex flex-wrap gap-8 justify-center mb-16">
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-2">

@@ -6,6 +6,7 @@ import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact-Fiverr";
 import { FloatingElements } from "./components/FloatingElements";
 import { ParticleBackground } from "./components/ParticleBackground";
+import { AnimatedBackground } from "./components/AnimatedBackground";
 import { Navigation } from "./components/Navigation";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ScrollProgress } from "./components/ScrollProgress";
@@ -61,6 +62,7 @@ export default function App() {
     <ErrorBoundary>
       <ScrollProgress />
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-gray-950 to-zinc-950 text-white overflow-x-hidden relative">
+        <AnimatedBackground />
         <ParticleBackground />
         <FloatingElements />
         
