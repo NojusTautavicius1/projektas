@@ -1,6 +1,25 @@
 import * as projectModel from "../models/project.js";
 import { autoBackup } from "../utils/auto-backup.js";
 
+const normalizeUrl = (value, allowRelative = false) => {
+  const raw = (value || '').trim();
+  if (!raw) return null;
+
+  if (allowRelative && raw.startsWith('/')) {
+    return raw;
+  }
+
+  if (/^https?:\/\//i.test(raw)) {
+    return raw;
+  }
+
+  if (!raw.includes(' ') && raw.includes('.')) {
+    return `https://${raw}`;
+  }
+
+  return raw;
+};
+
 // Gauti visus projektus
 export const index = async (req, res, next) => {
   let projects = await projectModel.selectAll();
@@ -28,6 +47,9 @@ export const store = async (req, res, next) => {
     req.body.image = `/images/projects/${req.file.filename}`;
   }
 
+  req.body.demo_url = normalizeUrl(req.body.demo_url, true);
+  req.body.github_url = normalizeUrl(req.body.github_url, false);
+
   let projectId = await projectModel.insert(req.body);
 
   if (!projectId) {
@@ -47,6 +69,9 @@ export const update = async (req, res, next) => {
   if (req.file) {
     req.body.image = `/images/projects/${req.file.filename}`;
   }
+
+  req.body.demo_url = normalizeUrl(req.body.demo_url, true);
+  req.body.github_url = normalizeUrl(req.body.github_url, false);
 
   let success = await projectModel.update(req.params.id, req.body);
 

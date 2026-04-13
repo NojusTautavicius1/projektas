@@ -1,25 +1,44 @@
-import pool from '../db/mysql.js';
+import pool, { dbDialect } from '../db/mysql.js';
 
 // Create activity_log table if it doesn't exist
 const createTableIfNotExists = async () => {
-  const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS activity_log (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id INT,
-      user_email VARCHAR(255),
-      action VARCHAR(100) NOT NULL,
-      entity_type VARCHAR(50),
-      entity_id INT,
-      description TEXT,
-      ip_address VARCHAR(45),
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      INDEX idx_user_id (user_id),
-      INDEX idx_created_at (created_at)
-    )
-  `;
+  const createTableQuery = dbDialect === 'postgres'
+    ? `
+      CREATE TABLE IF NOT EXISTS activity_log (
+        id BIGSERIAL PRIMARY KEY,
+        user_id BIGINT,
+        user_email VARCHAR(255),
+        action VARCHAR(100) NOT NULL,
+        entity_type VARCHAR(50),
+        entity_id BIGINT,
+        description TEXT,
+        ip_address VARCHAR(45),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `
+    : `
+      CREATE TABLE IF NOT EXISTS activity_log (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT,
+        user_email VARCHAR(255),
+        action VARCHAR(100) NOT NULL,
+        entity_type VARCHAR(50),
+        entity_id INT,
+        description TEXT,
+        ip_address VARCHAR(45),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_user_id (user_id),
+        INDEX idx_created_at (created_at)
+      )
+    `;
   
   try {
     await pool.query(createTableQuery);
+
+    if (dbDialect === 'postgres') {
+      await pool.query('CREATE INDEX IF NOT EXISTS idx_activity_user_id ON activity_log(user_id)');
+      await pool.query('CREATE INDEX IF NOT EXISTS idx_activity_created_at ON activity_log(created_at)');
+    }
   } catch (error) {
     console.error('Error creating activity_log table:', error);
   }
@@ -82,15 +101,27 @@ export const getActivityStats = async (req, res, next) => {
     `);
 
     // Get activities by day (last 7 days)
-    const [dailyStats] = await pool.query(`
-      SELECT 
-        DATE(created_at) as date,
-        COUNT(*) as count
-      FROM activity_log
-      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-      GROUP BY DATE(created_at)
-      ORDER BY date ASC
-    `);
+    const dailyStatsQuery = dbDialect === 'postgres'
+      ? `
+        SELECT 
+          DATE(created_at) as date,
+          COUNT(*) as count
+        FROM activity_log
+        WHERE created_at >= NOW() - INTERVAL '7 days'
+        GROUP BY DATE(created_at)
+        ORDER BY date ASC
+      `
+      : `
+        SELECT 
+          DATE(created_at) as date,
+          COUNT(*) as count
+        FROM activity_log
+        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY DATE(created_at)
+        ORDER BY date ASC
+      `;
+
+    const [dailyStats] = await pool.query(dailyStatsQuery);
 
     // Get most active users
     const [userStats] = await pool.query(`

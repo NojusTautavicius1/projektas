@@ -1,31 +1,48 @@
-import pool from '../db/mysql.js';
+import pool, { dbDialect } from '../db/mysql.js';
 import { sendContactNotification } from '../utils/email.js';
 
 // Create contact messages table if it doesn't exist
 const createTableIfNotExists = async () => {
-  const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS contact_messages (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL,
-      message TEXT NOT NULL,
-      is_read BOOLEAN DEFAULT FALSE,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-  `;
+  const createTableQuery = dbDialect === 'postgres'
+    ? `
+      CREATE TABLE IF NOT EXISTS contact_messages (
+        id BIGSERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        is_read SMALLINT DEFAULT 0,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `
+    : `
+      CREATE TABLE IF NOT EXISTS contact_messages (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        is_read BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
   
   try {
     await pool.query(createTableQuery);
     
     // Try to add is_read column if it doesn't exist (for existing tables)
     try {
-      await pool.query(`
-        ALTER TABLE contact_messages 
-        ADD COLUMN is_read BOOLEAN DEFAULT FALSE
-      `);
+      const addColumnQuery = dbDialect === 'postgres'
+        ? `ALTER TABLE contact_messages ADD COLUMN IF NOT EXISTS is_read SMALLINT DEFAULT 0`
+        : `ALTER TABLE contact_messages ADD COLUMN is_read BOOLEAN DEFAULT FALSE`;
+
+      await pool.query(addColumnQuery);
     } catch (alterError) {
       // Ignore error if column already exists
-      if (!alterError.message.includes('Duplicate column')) {
+      const errorMessage = alterError?.message || '';
+      const isDuplicateError =
+        errorMessage.includes('Duplicate column') ||
+        errorMessage.includes('already exists');
+
+      if (!isDuplicateError) {
         console.error('Error adding is_read column:', alterError);
       }
     }
@@ -171,7 +188,7 @@ export const markMessageAsRead = async (req, res, next) => {
     const { id } = req.params;
 
     const [result] = await pool.query(
-      'UPDATE contact_messages SET is_read = TRUE WHERE id = ?',
+      'UPDATE contact_messages SET is_read = 1 WHERE id = ?',
       [id]
     );
 

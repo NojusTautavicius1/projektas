@@ -20,6 +20,26 @@ import { LoadingScreen } from "@/components/Spinner";
 
 const TABLE_HEAD = ["Nuotrauka", "Pavadinimas", "Aprašymas", "Kategorija", "Data", "Veiksmai"];
 
+const normalizeProjectUrl = (value, allowRelative = false) => {
+  const raw = (value || "").trim();
+  if (!raw) return "";
+
+  if (allowRelative && raw.startsWith('/')) {
+    return raw;
+  }
+
+  if (/^https?:\/\//i.test(raw)) {
+    return raw;
+  }
+
+  // If user enters plain domain like "kalvita.lt", store it as absolute URL.
+  if (!raw.includes(' ') && raw.includes('.')) {
+    return `https://${raw}`;
+  }
+
+  return raw;
+};
+
 export function ProjectsManagement() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -88,10 +108,13 @@ export function ProjectsManagement() {
 
       // Create FormData for file upload
       const data = new FormData();
+      const normalizedDemoUrl = normalizeProjectUrl(formData.demo_url, true);
+      const normalizedGithubUrl = normalizeProjectUrl(formData.github_url, false);
+
       data.append('title', formData.title);
       data.append('description', formData.description);
-      data.append('demo_url', formData.demo_url || '');
-      data.append('github_url', formData.github_url || '');
+      data.append('demo_url', normalizedDemoUrl);
+      data.append('github_url', normalizedGithubUrl);
       data.append('tags', formData.tags || '');
       data.append('category', formData.category || '');
       data.append('sort_order', formData.sort_order || 0);
@@ -363,11 +386,11 @@ export function ProjectsManagement() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Input
-                label="Demo URL"
+                label="Demo / Website URL"
                 value={formData.demo_url}
                 onChange={(e) => setFormData({ ...formData, demo_url: e.target.value })}
                 className="text-slate-200"
-                placeholder="/projektas/skaiciuotuvas"
+                placeholder="kalvita.lt arba /projektas/skaiciuotuvas"
               />
             </div>
             <div>

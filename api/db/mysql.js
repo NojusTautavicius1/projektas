@@ -1,5 +1,8 @@
 import mysql from 'mysql2/promise';
+import pg from 'pg';
 import dotenv from 'dotenv';
+
+const { Pool: PgPool } = pg;
 
 // Load .env file only if it exists (for local development)
 try {
@@ -8,35 +11,114 @@ try {
   console.log('No .env file found, using environment variables');
 }
 
-// Validate required environment variables
-const requiredEnvVars = ['MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_DATABASE', 'MYSQL_PORT'];
-const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+const selectedDialect = (process.env.DB_DIALECT || '').toLowerCase();
+export const dbDialect = selectedDialect === 'postgres' || process.env.SUPABASE_DB_URL ? 'postgres' : 'mysql';
 
-if (missingEnvVars.length > 0) {
-  console.error('Missing required environment variables:', missingEnvVars.join(', '));
-  throw new Error(`Missing environment variables: ${missingEnvVars.join(', ')}`);
+const validateEnvVars = (requiredEnvVars) => {
+  const missingEnvVars = requiredEnvVars.filter((varName) => !process.env[varName]);
+
+  if (missingEnvVars.length > 0) {
+    console.error('Missing required environment variables:', missingEnvVars.join(', '));
+    throw new Error(`Missing environment variables: ${missingEnvVars.join(', ')}`);
+  }
+};
+
+const convertQuestionMarkParamsToPg = (sql) => {
+  let paramIndex = 0;
+  return sql.replace(/\?/g, () => `$${++paramIndex}`);
+};
+
+const normalizePgSql = (sql) => {
+  return sql.replace(/DATE_SUB\(NOW\(\),\s*INTERVAL\s+7\s+DAY\)/gi, "NOW() - INTERVAL '7 days'");
+};
+
+const isInsertQuery = (sql) => /^\s*INSERT\s+INTO\s+/i.test(sql);
+let db;
+
+if (dbDialect === 'postgres') {
+  validateEnvVars(['SUPABASE_DB_URL']);
+
+  const pgPool = new PgPool({
+    connectionString: process.env.SUPABASE_DB_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    max: 20,
+    idleTimeoutMillis: 20000,
+    connectionTimeoutMillis: 10000,
+  });
+
+  const runPgQuery = async (executor, sql, params = []) => {
+    let normalizedSql = normalizePgSql(sql);
+    normalizedSql = convertQuestionMarkParamsToPg(normalizedSql);
+
+    if (isInsertQuery(normalizedSql) && !/\bRETURNING\b/i.test(normalizedSql)) {
+      normalizedSql = `${normalizedSql} RETURNING id`;
+    }
+
+    const result = await executor.query(normalizedSql, params);
+    const normalizedResult = {
+      affectedRows: result.rowCount || 0,
+      insertId: result.rows?.[0]?.id || null,
+    };
+
+    if (/^\s*(SELECT|WITH)\s+/i.test(normalizedSql)) {
+      return [result.rows];
+    }
+
+    return [normalizedResult];
+  };
+
+  console.log('Database config:', {
+    dialect: 'postgres',
+    database: 'Supabase',
+  });
+
+  db = {
+    query: (sql, params = []) => runPgQuery(pgPool, sql, params),
+    getConnection: async () => {
+      const client = await pgPool.connect();
+      return {
+        query: (sql, params = []) => runPgQuery(client, sql, params),
+        beginTransaction: async () => {
+          await client.query('BEGIN');
+        },
+        commit: async () => {
+          await client.query('COMMIT');
+        },
+        rollback: async () => {
+          await client.query('ROLLBACK');
+        },
+        release: () => {
+          client.release();
+        },
+      };
+    },
+  };
+} else {
+  validateEnvVars(['MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_DATABASE', 'MYSQL_PORT']);
+
+  console.log('Database config:', {
+    dialect: 'mysql',
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    database: process.env.MYSQL_DATABASE,
+    port: process.env.MYSQL_PORT,
+  });
+
+  // Create the connection pool. The pool-specific settings are the defaults
+  db = mysql.createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    port: process.env.MYSQL_PORT,
+    waitForConnections: true,
+    connectionLimit: 20,
+    maxIdle: 20,
+    idleTimeout: 20000,
+    queueLimit: 0,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 0,
+  });
 }
 
-console.log('Database config:', {
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  database: process.env.MYSQL_DATABASE,
-  port: process.env.MYSQL_PORT
-});
-
-// Create the connection pool. The pool-specific settings are the defaults
-export default mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-  port: process.env.MYSQL_PORT,
-
-  waitForConnections: true,
-  connectionLimit: 20,
-  maxIdle: 20, // max idle connections, the default value is the same as `connectionLimit`
-  idleTimeout: 20000, // idle connections timeout, in milliseconds, the default value 60000
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
-});
+export default db;

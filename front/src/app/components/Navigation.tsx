@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { User, LogOut, Menu, X } from "lucide-react";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" }
+  { name: "Pradzia", href: "#home" },
+  { name: "Apie mane", href: "#about" },
+  { name: "Atsiliepimai", href: "#testimonials" },
+  { name: "Projektai", href: "#projects" },
+  { name: "Kontaktai", href: "#contact" }
 ];
 
 export function Navigation() {
@@ -86,7 +86,7 @@ export function Navigation() {
               whileTap={{ scale: 0.98 }}
               className="px-4 py-2 bg-slate-900 border-2 border-blue-500 text-slate-200 rounded-md text-sm hover:bg-slate-800 hover:border-blue-400 transition-all shadow-md"
             >
-              Let's Talk
+              Susisiekti
             </motion.a>
 
             {user ? (
@@ -102,7 +102,7 @@ export function Navigation() {
                   className="px-4 py-2 bg-red-600/80 text-white rounded-md text-sm hover:bg-red-600 transition-colors flex items-center gap-2"
                 >
                   <LogOut className="w-4 h-4" />
-                  Logout
+                  Atsijungti
                 </motion.button>
               </div>
             ) : (
@@ -112,7 +112,7 @@ export function Navigation() {
                 whileTap={{ scale: 0.98 }}
                 className="px-4 py-2 bg-gray-100 text-black rounded-md text-sm hover:bg-gray-200 transition-colors"
               >
-                Log In
+                  Prisijungti
               </motion.a>
             )}
           </div>
@@ -153,7 +153,7 @@ export function Navigation() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="block w-full px-4 py-2 bg-slate-900 border-2 border-blue-500 text-slate-200 rounded-md text-sm hover:bg-slate-800 hover:border-blue-400 transition-all text-center"
               >
-                Let's Talk
+                Susisiekti
               </a>
 
               {user ? (
@@ -167,7 +167,7 @@ export function Navigation() {
                     className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-red-600/80 text-white rounded-md text-sm hover:bg-red-600 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
-                    Logout
+                    Atsijungti
                   </button>
                 </>
               ) : (
@@ -176,7 +176,7 @@ export function Navigation() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="block w-full px-4 py-2 bg-gray-100 text-black rounded-md text-sm hover:bg-gray-200 transition-colors text-center"
                 >
-                  Log In
+                  Prisijungti
                 </a>
               )}
             </div>

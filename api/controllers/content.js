@@ -49,7 +49,7 @@ export const show = async (req, res, next) => {
     }
     
     // Parse JSON data field
-    content.data = content.data ? JSON.parse(content.data) : {};
+    content.data = typeof content.data === 'string' ? JSON.parse(content.data) : (content.data || {});
     
     res.json(content);
   } catch (err) {

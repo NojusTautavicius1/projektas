@@ -7,6 +7,7 @@ import contentRouter from './content.js';
 import featureBoxesRouter from './featureBoxes.js';
 import activityRouter from './activity.js';
 import servicesRouter from './services.js';
+import reviewsRouter from './reviews.js';
 
 const router = express.Router();
 
@@ -45,5 +46,8 @@ router.use('/api/activity', activityRouter);
 
 // pajungiame services maršrutus
 router.use('/api/services', servicesRouter);
+
+// pajungiame reviews maršrutus
+router.use('/api/reviews', reviewsRouter);
 
 export default router;

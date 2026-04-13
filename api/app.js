@@ -92,4 +92,12 @@ app.use(function(err, req, res, next) {
     res.json({message: 'Serverio klaida', error: err.message || err});
 });
 
+// Start server when running this file directly (npm run dev / npm start).
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`API server listening on http://localhost:${port}`);
+  });
+}
+
 export default app;

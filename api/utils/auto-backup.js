@@ -16,12 +16,17 @@ const DB_PORT = process.env.MYSQL_PORT || '3306';
 const DB_USER = process.env.MYSQL_USER || 'root';
 const DB_PASSWORD = process.env.MYSQL_PASSWORD || '';
 const DB_NAME = process.env.MYSQL_DATABASE || 'projects';
+const DB_DIALECT = (process.env.DB_DIALECT || 'mysql').toLowerCase();
 
 const OUTPUT_FILE = path.join(__dirname, '..', 'database-full.sql');
 
 let isBackingUp = false;
 
 export async function autoBackup() {
+  if (DB_DIALECT === 'postgres') {
+    return;
+  }
+
   // Prevent concurrent backups
   if (isBackingUp) {
     console.log('⏳ Backup jau vykdomas, praleidžiama...');

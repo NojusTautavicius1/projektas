@@ -22,7 +22,7 @@ export function Projects() {
   useEffect(() => {
     fetch("/api/projects")
       .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch projects');
+        if (!res.ok) throw new Error('Nepavyko gauti projektu');
         return res.json();
       })
       .then(data => {
@@ -42,10 +42,10 @@ export function Projects() {
         <ScrollReveal animation="bounce-in">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">
-              Projects
+              Projektai
             </h2>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              My created projects and contributions to open source. I enjoy building things that solve problems and learning new technologies along the way.
+              Mano sukurti projektai ir indelis i atviro kodo bendruomene. Man patinka kurti sprendimus, kurie sprendzia realias problemas.
             </p>
           </div>
         </ScrollReveal>
@@ -190,7 +190,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   className="flex items-center gap-2 text-sm text-slate-300 border border-slate-700 px-3 py-1 rounded-md hover:bg-slate-800/50 hover:border-slate-600 transition-all"
                 >
                   <Github className="w-4 h-4" />
-                  <span>Code</span>
+                  <span>Kodas</span>
                 </motion.a>
               )}
             </div>

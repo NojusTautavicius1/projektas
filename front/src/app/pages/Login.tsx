@@ -15,7 +15,7 @@ export default function Login() {
   const [success, setSuccess] = useState("");
 
   useEffect(() => {
-    document.title = isLogin ? "Login" : "Register";
+    document.title = isLogin ? "Prisijungimas" : "Registracija";
   }, [isLogin]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ export default function Login() {
         if (data.errors && Array.isArray(data.errors)) {
           setError(data.errors[0].msg || data.message || "An error occurred");
         } else {
-          setError(data.message || "An error occurred");
+          setError(data.message || "Ivyko klaida");
         }
         return;
       }
@@ -66,16 +66,16 @@ export default function Login() {
         if (data.token) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          setSuccess("Login successful! Redirecting...");
+          setSuccess("Sekmingai prisijungta! Nukreipiama...");
           setTimeout(() => window.location.href = "/", 1500);
         }
       } else {
-        setSuccess("Registration successful! You can now login.");
+        setSuccess("Registracija sekminga! Dabar galite prisijungti.");
         setFormData({ email: "", password: "", passwordConfirm: "", nickname: "" });
         setTimeout(() => setIsLogin(true), 2000);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Network error");
+      setError(err instanceof Error ? err.message : "Tinklo klaida");
     } finally {
       setLoading(false);
     }
@@ -101,10 +101,10 @@ export default function Login() {
               </div>
             </div>
             <h1 className="font-serif text-3xl text-slate-200 mb-1">
-              {isLogin ? "Login" : "Register"}
+              {isLogin ? "Prisijungimas" : "Registracija"}
             </h1>
             <p className="text-sm text-slate-400">
-              {isLogin ? "Sign in to your account" : "Create a new account"}
+              {isLogin ? "Prisijunkite prie savo paskyros" : "Sukurkite nauja paskyra"}
             </p>
           </div>
 
@@ -122,7 +122,7 @@ export default function Login() {
                   : "bg-slate-800/50 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
               }`}
             >
-              Login
+              Prisijungti
             </button>
             <button
               onClick={() => {
@@ -136,7 +136,7 @@ export default function Login() {
                   : "bg-slate-800/50 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
               }`}
             >
-              Register
+              Registruotis
             </button>
           </div>
 
@@ -162,7 +162,7 @@ export default function Login() {
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Email</label>
+              <label className="block text-xs text-slate-400 mb-1">El. pastas</label>
               <input
                 type="email"
                 name="email"
@@ -177,7 +177,7 @@ export default function Login() {
             {!isLogin && (
               <div>
                 <label className="block text-xs text-slate-400 mb-1">
-                  Nickname
+                  Slapyvardis
                 </label>
                 <input
                   type="text"
@@ -185,7 +185,7 @@ export default function Login() {
                   value={formData.nickname}
                   onChange={handleChange}
                   className="w-full p-3 rounded-md bg-slate-900/60 border border-slate-800 text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-700 focus:border-slate-600 transition shadow-sm"
-                  placeholder="your.nickname"
+                  placeholder="mano.vardas"
                   required
                 />
               </div>
@@ -193,7 +193,7 @@ export default function Login() {
 
             <div>
               <label className="block text-xs text-slate-400 mb-1">
-                Password
+                Slaptazodis
               </label>
               <input
                 type="password"
@@ -209,7 +209,7 @@ export default function Login() {
             {!isLogin && (
               <div>
                 <label className="block text-xs text-slate-400 mb-1">
-                  Confirm Password
+                  Pakartokite slaptazodi
                 </label>
                 <input
                   type="password"
@@ -228,7 +228,7 @@ export default function Login() {
               disabled={loading}
               className="w-full px-4 py-3 bg-slate-900 border-2 border-blue-500 text-slate-200 rounded-md shadow-md hover:bg-slate-800 hover:border-blue-400 transition disabled:opacity-50 font-medium"
             >
-              {loading ? "..." : isLogin ? "Sign In" : "Create Account"}
+              {loading ? "..." : isLogin ? "Prisijungti" : "Sukurti paskyra"}
             </button>
           </form>
 
@@ -240,7 +240,7 @@ export default function Login() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-gradient-to-br from-slate-900/70 to-zinc-900/70 text-slate-400">
-                    Or
+                    Arba
                   </span>
                 </div>
               </div>
@@ -251,7 +251,7 @@ export default function Login() {
                 className="w-full px-4 py-3 bg-slate-800/60 border border-slate-700 text-slate-200 rounded-md hover:bg-slate-700/60 hover:border-slate-600 transition flex items-center justify-center gap-2 font-medium shadow-sm hover:shadow-md"
               >
                 <Github className="w-4 h-4" />
-                Sign in with Google
+                Prisijungti su Google
               </button>
             </>
           )}
@@ -260,7 +260,7 @@ export default function Login() {
             href="/"
             className="text-sm text-slate-400 hover:text-slate-200 mt-4 block text-center transition"
           >
-            Return home
+            Grizti i pradzia
           </a>
         </div>
       </motion.div>

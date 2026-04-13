@@ -8,8 +8,8 @@ export function Hero() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
     name: "Nojus Tautavicius",
-    subtitle: "Full-Stack Developer",
-    description: "React, Node.js & Modern Web Solutions | Fast Delivery | Production-Ready Code",
+    subtitle: "Pilno ciklo programuotojas",
+    description: "React, Node.js ir modernus web sprendimai | Greitas pristatymas | Production lygio kodas",
     initials: "NT"
   });
 
@@ -33,7 +33,7 @@ export function Hero() {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center px-6 relative">
       {loading ? (
-        <LoadingScreen message="Loading..." />
+        <LoadingScreen message="Kraunama..." />
       ) : (
       <div className="max-w-5xl mx-auto text-center">
         <motion.div
@@ -56,7 +56,7 @@ export function Hero() {
           >
             <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-slate-800 via-gray-800 to-zinc-800 border-4 border-blue-500/50 overflow-hidden flex items-center justify-center shadow-2xl shadow-blue-500/30 relative">
               {/* Online badge */}
-              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 animate-pulse" title="Available now" />
+              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 animate-pulse" title="Siuo metu laisvas" />
               <div className="w-full h-full flex items-center justify-center text-5xl font-serif font-bold text-slate-200">
                 {content.initials}
               </div>
@@ -72,11 +72,11 @@ export function Hero() {
           >
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/10 border border-blue-500/30 rounded-full">
               <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-sm text-slate-300 font-medium">Top Rated</span>
+              <span className="text-sm text-slate-300 font-medium">Aukstai ivertintas</span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full">
               <Clock className="w-4 h-4 text-green-400" />
-              <span className="text-sm text-slate-300 font-medium">24h Response</span>
+              <span className="text-sm text-slate-300 font-medium">Atsakau per 24 h</span>
             </div>
           </motion.div>
 
@@ -120,18 +120,7 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg shadow-blue-500/30 transition-all"
             >
-              View My Work
-            </motion.a>
-            <motion.a
-              href="https://www.fiverr.com/s/6YroEYL"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
-            >
-              <Star className="w-5 h-5 fill-white" />
-              Hire on Fiverr
+              Ziureti projektus
             </motion.a>
             <motion.a
               href="#contact"
@@ -139,7 +128,7 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-transparent border-2 border-blue-500/50 hover:border-blue-500 text-slate-200 font-semibold rounded-lg transition-all"
             >
-              Get Free Quote
+              Gauti nemokama pasiulyma
             </motion.a>
           </motion.div>
 

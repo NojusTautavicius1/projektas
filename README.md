@@ -110,6 +110,7 @@ Before deploying to production, ensure:
 
 - [SECURITY.md](SECURITY.md) - Complete security checklist and best practices
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Step-by-step deployment guide
+- [SUPABASE_MIGRATION_STEPS.md](SUPABASE_MIGRATION_STEPS.md) - Steps for switching backend database to Supabase Postgres
 - `.env.production.example` - Production environment template
 
 ## 🛠️ Technologies
@@ -131,7 +132,9 @@ For security issues or questions:
 
 ### Required for Production:
 - `JWT_SECRET` - Strong secret (64+ chars)
-- `MYSQL_*` - Database connection details
+- `MYSQL_*` - Database connection details (when `DB_DIALECT=mysql`)
+- `DB_DIALECT` - `mysql` or `postgres`
+- `SUPABASE_DB_URL` - Required when `DB_DIALECT=postgres`
 - `FRONTEND_URL` - Your production domain
 - `NODE_ENV=production`
 - `EMAIL_*` - Email service credentials

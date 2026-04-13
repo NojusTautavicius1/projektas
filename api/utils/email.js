@@ -6,12 +6,21 @@ import { createTransport } from 'nodemailer';
 // 2. Generate an "App Password" from https://myaccount.google.com/apppasswords
 // 3. Use that app password instead of your regular password
 
+const emailUser = process.env.EMAIL_USER;
+const emailPassword = process.env.EMAIL_PASSWORD;
+const isProduction = process.env.NODE_ENV === 'production';
+
 const transporter = createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER || 'nojustautavicius007@gmail.com', 
-    pass: process.env.EMAIL_PASSWORD || 'uijq henm pzyf aiol' 
-  }
+    user: emailUser,
+    pass: emailPassword,
+  },
+  // Some local environments (antivirus/proxy) inject self-signed certificates.
+  // Keep strict certificate validation in production.
+  tls: {
+    rejectUnauthorized: isProduction,
+  },
 });
 
 // Verify transporter configuration
@@ -25,9 +34,13 @@ transporter.verify(function (error, success) {
 
 // Send email notification for new contact message
 export const sendContactNotification = async (name, email, message) => {
+  if (!emailUser || !emailPassword) {
+    return { success: false, error: 'EMAIL_USER/EMAIL_PASSWORD not configured' };
+  }
+
   const mailOptions = {
-    from: process.env.EMAIL_USER || 'nojustautavicius007@gmail.com',
-    to: 'nojustautavicius007@gmail.com', // Your email to receive notifications
+    from: emailUser,
+    to: emailUser,
     subject: `New Contact Form Message from ${name}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

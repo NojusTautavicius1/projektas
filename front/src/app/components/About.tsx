@@ -18,15 +18,15 @@ interface FeatureBox {
 export function About() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
-    title: "About Me",
-    content: "I create polished, production-ready digital products with a focus on clarity, reliability, and craft. My background spans design and engineering, which helps me bridge the gap between visual quality and technical excellence.",
+    title: "Apie mane",
+    content: "Kuriu tvarkingus, production lygio skaitmeninius produktus, orientuotus i aiskuma, patikimuma ir kokybe. Turiu dizaino ir programavimo patirties, todel moku suderinti vizualu lygi su techniniu tikslumu.",
     image: null
   });
   
   const [boxes, setBoxes] = useState<FeatureBox[]>([
-    { id: 1, label: "Clean Code", icon: "Code2", description: "" },
-    { id: 2, label: "Design", icon: "Palette", description: "" },
-    { id: 3, label: "Performance", icon: "Zap", description: "" }
+    { id: 1, label: "Svarus kodas", icon: "Code2", description: "" },
+    { id: 2, label: "Dizainas", icon: "Palette", description: "" },
+    { id: 3, label: "Nasumas", icon: "Zap", description: "" }
   ]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function About() {
         .then(data => {
           if (data) {
             setContent({
-              title: data.title || "About Me",
+              title: data.title || "Apie mane",
               content: data.content || content.content,
               image: data.image || null
             });
@@ -58,7 +58,7 @@ export function About() {
   return (
     <section id="about" className="py-32 px-6 relative">
       {loading ? (
-        <LoadingScreen message="Loading..." />
+        <LoadingScreen message="Kraunama..." />
       ) : (
       <div className="max-w-6xl mx-auto">
         <ScrollReveal animation="scale-up">
