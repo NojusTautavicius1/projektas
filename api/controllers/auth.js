@@ -20,25 +20,29 @@ import GoogleStrategy from "passport-google-oauth20";
 
 import { logActivity } from "./activity.js";
 
-if (!JWT_SECRET) throw new Error({message: "JWT_SECRET nėra nustatytas .env faile!"});
+const hasJwtSecret = Boolean(JWT_SECRET);
 
-passport.use(
-  new JwtStrategy(
-    {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: JWT_SECRET,
-    },
-    async (jwt_payload, done) => {
-      try {
-        const user = await User.selectById(jwt_payload.id);
-        if (!user) return done(null, false);
-        return done(null, user);
-      } catch (err) {
-        return done(err, false);
+if (hasJwtSecret) {
+  passport.use(
+    new JwtStrategy(
+      {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: JWT_SECRET,
+      },
+      async (jwt_payload, done) => {
+        try {
+          const user = await User.selectById(jwt_payload.id);
+          if (!user) return done(null, false);
+          return done(null, user);
+        } catch (err) {
+          return done(err, false);
+        }
       }
-    }
-  )
-);
+    )
+  );
+} else {
+  console.error("JWT_SECRET nėra nustatytas. Auth endpointai neveiks, kol nebus sukonfigūruotas env.");
+}
 
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   passport.use(
@@ -69,6 +73,10 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
 }
 
 export const isAuth = (req, res, next) => {
+  if (!hasJwtSecret) {
+    return res.status(500).json({ message: "Serverio konfigūracijos klaida: JWT_SECRET nėra nustatytas" });
+  }
+
   passport.authenticate("jwt", { session: false }, function (err, user, info) {   
     if (user) {
       req.user = user;
@@ -80,6 +88,10 @@ export const isAuth = (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
+  if (!hasJwtSecret) {
+    return res.status(500).json({ message: "Serverio konfigūracijos klaida: JWT_SECRET nėra nustatytas" });
+  }
+
   passport.authenticate("jwt", { session: false }, function (err, user, info) {
     if (user && user.roleId === 3) {
       req.user = user;
@@ -157,6 +169,11 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
+    if (!hasJwtSecret) {
+      res.status(500);
+      return next({message: "Serverio konfigūracijos klaida: JWT_SECRET nėra nustatytas"});
+    }
+
     const validation = validationResult(req);
 
     if (!validation.isEmpty()) {
