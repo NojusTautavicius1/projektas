@@ -95,11 +95,12 @@ export const createContactMessage = async (req, res, next) => {
       [name, email, message]
     );
 
-    // Send email notification (async, don't wait for it)
-    sendContactNotification(name, email, message).catch(err => {
-      console.error('Failed to send email notification:', err);
-      // Don't fail the request if email fails
-    });
+    // Try sending email notification and log concrete reason when it fails.
+    const emailResult = await sendContactNotification(name, email, message);
+    if (!emailResult?.success) {
+      console.error('Failed to send email notification:', emailResult?.error || 'Unknown email error');
+      // Keep API response successful because DB save succeeded.
+    }
 
     res.status(201).json({
       success: true,

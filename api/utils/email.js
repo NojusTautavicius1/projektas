@@ -23,14 +23,18 @@ const transporter = createTransport({
   },
 });
 
-// Verify transporter configuration
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log('Email transporter error:', error);
-  } else {
-    console.log('Email server is ready to send messages');
-  }
-});
+if (emailUser && emailPassword) {
+  // Verify transporter configuration
+  transporter.verify(function (error, success) {
+    if (error) {
+      console.log('Email transporter error:', error);
+    } else {
+      console.log('Email server is ready to send messages');
+    }
+  });
+} else {
+  console.warn('Email transporter not configured: EMAIL_USER/EMAIL_PASSWORD are missing');
+}
 
 // Send email notification for new contact message
 export const sendContactNotification = async (name, email, message) => {
@@ -39,9 +43,11 @@ export const sendContactNotification = async (name, email, message) => {
   }
 
   const mailOptions = {
-    from: emailUser,
+    from: `Portfolio Contact <${emailUser}>`,
     to: emailUser,
+    replyTo: email,
     subject: `New Contact Form Message from ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4f46e5;">New Contact Form Submission</h2>
