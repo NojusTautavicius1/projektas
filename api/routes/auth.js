@@ -15,6 +15,9 @@ router.post("/login", userController.authValidator(), userController.login);
 // Vartotojo registracija
 router.post("/register", userController.registerValidator(), userController.register);
 
+// Password reset request
+router.post("/password-reset", userController.requestPasswordReset);
+
 // Google OAuth routes
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 

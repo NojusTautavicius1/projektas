@@ -220,3 +220,38 @@ export const login = async (req, res, next) => {
     return next({message: "Prisijungimas nepavyko dėl serverio klaidos"});
   }
 };
+
+export const requestPasswordReset = async (req, res, next) => {
+  try {
+    const { email } = req.body || {};
+
+    if (!email) {
+      return res.status(400).json({ message: "El. paštas yra privalomas" });
+    }
+
+    const user = await User.selectByEmail(email);
+
+    // Return generic response to avoid exposing whether account exists.
+    if (!user) {
+      return res.status(200).json({ message: "Jei paskyra egzistuoja, slaptažodžio keitimo instrukcijos bus išsiųstos el. paštu." });
+    }
+
+    const emailUser = process.env.EMAIL_USER;
+    const emailPassword = process.env.EMAIL_PASSWORD;
+
+    if (emailUser && emailPassword) {
+      const { default: transporter } = await import("../utils/email.js");
+      await transporter.sendMail({
+        from: `Portfolio Support <${emailUser}>`,
+        to: email,
+        subject: "Password reset request",
+        text: "Gavome jūsų slaptažodžio atkūrimo užklausą. Jei tai buvote jūs, susisiekite su administracija dėl slaptažodžio atstatymo.",
+      });
+    }
+
+    return res.status(200).json({ message: "Jei paskyra egzistuoja, slaptažodžio keitimo instrukcijos bus išsiųstos el. paštu." });
+  } catch (error) {
+    console.error("Password reset request error:", error);
+    return res.status(200).json({ message: "Jei paskyra egzistuoja, slaptažodžio keitimo instrukcijos bus išsiųstos el. paštu." });
+  }
+};
