@@ -22,23 +22,46 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false
 }));
 
-// CORS nustatymai
-const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? [process.env.FRONTEND_URL, 'https://projektas-bj2p.vercel.app']
-  : ['http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174', 'http://localhost:81', 'http://127.0.0.1:81'];
+// CORS nustatymai: allow both production domain and local admin/frontend dev origins.
+const localOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:5174',
+  'http://localhost:81',
+  'http://127.0.0.1:81',
+];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes(process.env.FRONTEND_URL)) {
+const productionOrigins = [
+  process.env.FRONTEND_URL,
+  'https://ntdev.lt',
+  'https://www.ntdev.lt',
+  'https://projektas-bj2p.vercel.app',
+].filter(Boolean);
+
+const allowedOrigins = [...new Set([...localOrigins, ...productionOrigins])];
+
+const corsOptions = {
+  origin(origin, callback) {
+    // Allow requests with no origin (curl/postman/server-to-server)
+    if (!origin) {
       return callback(null, true);
-    } else {
-      return callback(null, true); // Allow all in production for now
     }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
   },
-  credentials: true
-}));
+  credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
