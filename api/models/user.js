@@ -32,6 +32,16 @@ export const selectByEmail = async (email) => {
   }
 }
 
+export const selectByNickname = async (nickname) => {
+  try {
+    const [rows] = await db.query(`SELECT * FROM ${tableName} WHERE nickname = ?`, [nickname]);
+    return rows[0];
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
 export async function insert(data) {
   try {
     const [result] = await db.query(`INSERT INTO ${tableName} (email, nickname, password) VALUES (?, ?, ?)`, [data.email, data.nickname, data.password]);

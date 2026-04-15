@@ -90,7 +90,7 @@ export function SignIn() {
   }, [user, token]);
 
   const doNavigateDashboard = () => {
-    navigate("/dashboard/home");
+    navigate("/admin/home");
   };
 
   return (

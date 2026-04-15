@@ -103,84 +103,103 @@ export const registerValidator = () => [
 ];
 
 export const register = async (req, res, next) => {
-  // surenkame ir validuojame duomenis
-  const validation = validationResult(req);
+  try {
+    // surenkame ir validuojame duomenis
+    const validation = validationResult(req);
 
-  if (!validation.isEmpty()) {
-    res.status(400);
-    return next({message: "Duomenų klaida", errors: validation.array()});
-  }
+    if (!validation.isEmpty()) {
+      res.status(400);
+      return next({message: "Duomenų klaida", errors: validation.array()});
+    }
 
-  // surenkame validuotus duomenis iš užklausos
-  const data = matchedData(req);
+    // surenkame validuotus duomenis iš užklausos
+    const data = matchedData(req);
 
-  // tikriname ar vartotojo el. paštas jau egzistuoja
-  const existingEmail = await User.selectByEmail(data.email);
-  if (existingEmail) {
-    res.status(400);
-    return next({message: "El. paštas jau užregistruotas"});
-  }
+    // tikriname ar vartotojo el. paštas jau egzistuoja
+    const existingEmail = await User.selectByEmail(data.email);
+    if (existingEmail) {
+      res.status(400);
+      return next({message: "El. paštas jau užregistruotas"});
+    }
 
-  // data.role = "user"; // numatytasis roleId registracijai
+    // tikriname ar slapyvardis jau naudojamas
+    const existingNickname = await User.selectByNickname(data.nickname);
+    if (existingNickname) {
+      res.status(400);
+      return next({message: "Slapyvardis jau naudojamas"});
+    }
 
-  // šifruojame slaptažodį
-  data.password = await bcryptjs.hash(data.password, 10);
+    // data.role = "user"; // numatytasis roleId registracijai
 
-  // įterpiame naują vartotoją į DB
-  let insertId = await User.insert(data);
+    // šifruojame slaptažodį
+    data.password = await bcryptjs.hash(data.password, 10);
 
-  if (!insertId) {
+    // įterpiame naują vartotoją į DB
+    let insertId = await User.insert(data);
+
+    if (!insertId) {
+      res.status(500);
+      return next({message: "Nepavyko sukurti vartotojo. Patikrinkite duomenis ir bandykite dar kartą."});
+    }
+
+    // grąžiname vartotojo id
+    res.status(201).json({
+      status: "success",
+      message: "Vartotojas užregistruotas",
+      id: insertId,
+    });
+  } catch (error) {
+    console.error('Register error:', error);
     res.status(500);
-    return next({message: "Nepavyko sukurti vartotojo"});
+    return next({message: "Registracija nepavyko dėl serverio klaidos"});
   }
-
-  // grąžiname vartotojo id
-  res.status(201).json({
-    status: "success",
-    message: "Vartotojas užregistruotas",
-    id: insertId,
-  });
 };
 
 export const login = async (req, res, next) => {
-  const validation = validationResult(req);
+  try {
+    const validation = validationResult(req);
 
-  if (!validation.isEmpty()) {
-    res.status(400);
-    return next({message: "Duomenų klaida", errors: validation.array()});
+    if (!validation.isEmpty()) {
+      res.status(400);
+      return next({message: "Duomenų klaida", errors: validation.array()});
+    }
+
+    const data = matchedData(req);
+
+    const user = await User.selectByEmail(data.email);
+    if (!user) {
+      res.status(401);
+      return next({message: "Neteisingi prisijungimo duomenys"});
+    }
+
+    const match = await bcryptjs.compare(data.password, user.password);
+    if (!match) {
+      res.status(401);
+      return next({message: "Neteisingi prisijungimo duomenys"});
+    }
+
+    // create JWT
+    const token = jwt.sign({ 
+      id: user.id, 
+      email: user.email,
+      role: user.role 
+    }, JWT_SECRET, { expiresIn: "1w" });
+
+    // Log login activity
+    const ipAddress = req.ip || req.connection.remoteAddress;
+    await logActivity(user.id, user.email, 'LOGIN', null, null, 'User logged in successfully', ipAddress);
+
+    // Return a minimal user object (do not include password)
+    const safeUser = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    };
+
+    res.status(200).json({ status: "success", user: safeUser, token });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500);
+    return next({message: "Prisijungimas nepavyko dėl serverio klaidos"});
   }
-
-  const data = matchedData(req);
-
-  const user = await User.selectByEmail(data.email);
-  if (!user) {
-    res.status(401);
-    return next({message: "Neteisingi prisijungimo duomenys"});
-  }
-
-  const match = await bcryptjs.compare(data.password, user.password);
-  if (!match) {
-    res.status(401);
-    return next({message: "Neteisingi prisijungimo duomenys"});
-  }
-
-  // create JWT
-  const token = jwt.sign({ 
-    id: user.id, 
-    email: user.email,
-    role: user.role 
-  }, JWT_SECRET, { expiresIn: "1w" });
-
-  // Log login activity
-  const ipAddress = req.ip || req.connection.remoteAddress;
-  await logActivity(user.id, user.email, 'LOGIN', null, null, 'User logged in successfully', ipAddress);
-
-  // Return a minimal user object (do not include password)
-  const safeUser = {
-    id: user.id,
-    email: user.email,
-    role: user.role,
-  };
-
-  res.status(200).json({ status: "success", user: safeUser, token });
 };

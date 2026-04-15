@@ -11,6 +11,7 @@ import { AlertContext } from "@/context";
 
 export function SignUp() {
   const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export function SignUp() {
 
     hideAllAlerts();
 
-    if (!email || !password || !password2) {
+    if (!email || !nickname || !password || !password2) {
       addAlert("Visi laukai privalomi", "warning");
       return;
     }
@@ -33,14 +34,16 @@ export function SignUp() {
     }
 
     try {
-      const res = await fetch("/api/register", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email,
+          nickname,
           password,
+          passwordConfirm: password2,
         }),
       });
 
@@ -120,6 +123,26 @@ export function SignUp() {
               placeholder="name@mail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <div className="mb-1 mt-4 flex flex-col gap-6">
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="-mb-3 font-medium"
+            >
+              Slapyvardis
+            </Typography>
+            <Input
+              size="lg"
+              type="text"
+              placeholder="mano.vardas"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
