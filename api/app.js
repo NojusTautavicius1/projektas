@@ -40,6 +40,7 @@ const productionOrigins = [
 ].filter(Boolean);
 
 const allowedOrigins = [...new Set([...localOrigins, ...productionOrigins])];
+const localhostOriginPattern = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i;
 
 const corsOptions = {
   origin(origin, callback) {
@@ -49,6 +50,10 @@ const corsOptions = {
     }
 
     if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    if (localhostOriginPattern.test(origin)) {
       return callback(null, true);
     }
 
