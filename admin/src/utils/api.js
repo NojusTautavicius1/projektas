@@ -1,4 +1,5 @@
 const rawBase = import.meta.env.VITE_API_BASE_URL?.trim();
+const defaultRemoteBase = "https://ntdev.lt";
 
 const computedBase = (() => {
   if (rawBase) {
@@ -8,7 +9,9 @@ const computedBase = (() => {
   if (typeof window !== "undefined") {
     const { protocol, hostname, port } = window.location;
     if (hostname === "localhost" || hostname === "127.0.0.1") {
-      return `${protocol}//${hostname}:3000`;
+      // Local admin commonly connects to deployed API.
+      // Override with VITE_API_BASE_URL when needed.
+      return defaultRemoteBase;
     }
 
     // Same-origin is the safest default in production when admin and API share host.
