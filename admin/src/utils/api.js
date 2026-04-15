@@ -1,5 +1,5 @@
 const rawBase = import.meta.env.VITE_API_BASE_URL?.trim();
-const defaultRemoteBase = "https://ntdev.lt";
+const defaultRemoteBase = "https://www.ntdev.lt";
 
 const computedBase = (() => {
   if (rawBase) {
