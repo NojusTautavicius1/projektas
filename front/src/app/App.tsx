@@ -37,20 +37,32 @@ export default function App() {
   // Remove loading screen after component mounts
   useEffect(() => {
     const removeLoadingScreen = () => {
-      const loadingScreen = document.getElementById('loading-screen');
+      const hideInitialLoader = (window as Window & { __hideInitialLoader?: () => void }).__hideInitialLoader;
+      if (typeof hideInitialLoader === 'function') {
+        hideInitialLoader();
+        return;
+      }
+
+      const loadingScreen = document.getElementById("loading-screen");
       if (loadingScreen) {
-        loadingScreen.style.opacity = '0';
-        loadingScreen.style.transition = 'opacity 0.5s ease';
+        loadingScreen.style.opacity = "0";
+        loadingScreen.style.transition = "opacity 0.5s ease";
         setTimeout(() => loadingScreen.remove(), 500);
       }
     };
 
+    const onLoad = () => setTimeout(removeLoadingScreen, 300);
+
     // Wait for document to be ready and give React time to render
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
       setTimeout(removeLoadingScreen, 300);
     } else {
-      window.addEventListener('load', () => setTimeout(removeLoadingScreen, 300));
+      window.addEventListener("load", onLoad);
     }
+
+    return () => {
+      window.removeEventListener("load", onLoad);
+    };
   }, []);
 
   const isLogin = path === "/login" || path === "/login/";
