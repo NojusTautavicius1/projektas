@@ -21,7 +21,7 @@ import {
 import { PencilIcon, PlusIcon, HomeIcon, UserIcon, BriefcaseIcon, AcademicCapIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { AuthContext, AlertContext } from "@/context";
 import { LoadingScreen } from "@/components/Spinner";
-import { buildAssetUrl } from "@/utils/api";
+import { buildAssetUrl, canUploadFilesDirectly } from "@/utils/api";
 
 const SECTION_TABS = [
   { label: "Home", value: "home", icon: HomeIcon },
@@ -125,6 +125,11 @@ export function ContentManagement() {
     try {
       if (!currentSection) {
         addAlert("Nėra pasirinktos sekcijos", "error");
+        return;
+      }
+
+      if (imageFile && !canUploadFilesDirectly()) {
+        addAlert("Vietiniame admin su nuotoliniu API failų įkėlimas ribojamas. Naudokite nuotraukos URL lauką arba paleiskite lokalų API (localhost:3000).", "error");
         return;
       }
 

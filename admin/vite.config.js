@@ -20,12 +20,16 @@ export default defineConfig({
     port: 5174,
     strictPort: false,
     host: true,
-    origin: "http://localhost:5174",
     watch: {
       usePolling: true,
     },
     proxy: {
       '/api': {
+        target: apiProxyTarget,
+        changeOrigin: true,
+        secure: false,
+      },
+      '/images': {
         target: apiProxyTarget,
         changeOrigin: true,
         secure: false,

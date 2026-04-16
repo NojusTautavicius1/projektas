@@ -17,7 +17,7 @@ import {
 import { PencilIcon, TrashIcon, PlusIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { AuthContext, AlertContext } from "@/context";
 import { LoadingScreen } from "@/components/Spinner";
-import { buildAssetUrl } from "@/utils/api";
+import { buildAssetUrl, canUploadFilesDirectly } from "@/utils/api";
 
 const TABLE_HEAD = ["Nuotrauka", "Pavadinimas", "Aprašymas", "Kategorija", "Data", "Veiksmai"];
 
@@ -102,6 +102,11 @@ export function ProjectsManagement() {
       // Validacija
       if (!formData.title || !formData.description) {
         addAlert("Užpildykite visus privalomus laukus", "error");
+        return;
+      }
+
+      if (formData.image && !canUploadFilesDirectly()) {
+        addAlert("Vietiniame admin su nuotoliniu API failų įkėlimas ribojamas. Naudokite nuotraukos URL lauką arba paleiskite lokalų API (localhost:3000).", "error");
         return;
       }
 

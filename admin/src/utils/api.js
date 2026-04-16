@@ -1,6 +1,8 @@
 const rawBase = import.meta.env.VITE_API_BASE_URL?.trim();
 const defaultRemoteBase = "https://www.ntdev.lt";
 const forceCrossOrigin = import.meta.env.VITE_FORCE_CROSS_ORIGIN === "true";
+const rawProxyTarget = import.meta.env.VITE_PROXY_API_TARGET?.trim();
+const proxyTarget = rawProxyTarget || defaultRemoteBase;
 
 const computedBase = (() => {
   const isBrowser = typeof window !== "undefined";
@@ -36,6 +38,26 @@ const computedBase = (() => {
 })();
 
 const absoluteUrlPattern = /^https?:\/\//i;
+
+function isLocalhostUrl(value = "") {
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value.trim());
+}
+
+export function canUploadFilesDirectly() {
+  if (typeof window === "undefined") {
+    return true;
+  }
+
+  const isLocalAdmin =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+  if (!isLocalAdmin) {
+    return true;
+  }
+
+  return isLocalhostUrl(proxyTarget);
+}
 
 export function buildApiUrl(path = "") {
   if (!path) {
