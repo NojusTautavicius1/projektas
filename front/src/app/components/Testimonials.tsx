@@ -320,32 +320,16 @@ export function Testimonials() {
 
         {loading && <p className="text-center text-gray-400 mb-8">Kraunami atsiliepimai...</p>}
 
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.1
-              }
-            }
-          }}
-        >
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((testimonial, index) => (
             <motion.div
               key={testimonial.id || index}
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0,
-                  transition: {
-                    duration: 0.6,
-                    ease: [0.21, 0.47, 0.32, 0.98]
-                  }
-                }
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.08,
+                ease: [0.21, 0.47, 0.32, 0.98],
               }}
               className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/30 transition-all relative"
             >
@@ -383,7 +367,7 @@ export function Testimonials() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         <ScrollReveal delay={0.4}>
           <div className="mt-8 text-center">
