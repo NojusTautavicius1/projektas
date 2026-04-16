@@ -15,12 +15,14 @@ interface FeatureBox {
   description?: string;
 }
 
+const ABOUT_IMAGE_FALLBACK = "/images/content/about.jpg";
+
 export function About() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
     title: "Apie mane",
     content: "Kuriu tvarkingus, production lygio skaitmeninius produktus, orientuotus i aiskuma, patikimuma ir kokybe. Turiu dizaino ir programavimo patirties, todel moku suderinti vizualu lygi su techniniu tikslumu.",
-    image: null
+    image: ABOUT_IMAGE_FALLBACK
   });
   
   const [boxes, setBoxes] = useState<FeatureBox[]>([
@@ -38,7 +40,7 @@ export function About() {
             setContent({
               title: data.title || "Apie mane",
               content: data.content || content.content,
-              image: data.image || null
+              image: ABOUT_IMAGE_FALLBACK
             });
           }
         })
@@ -74,6 +76,11 @@ export function About() {
                     src={content.image} 
                     alt={content.title}
                     className="w-full h-full object-cover"
+                    onError={() => {
+                      if (content.image !== ABOUT_IMAGE_FALLBACK) {
+                        setContent((prev) => ({ ...prev, image: ABOUT_IMAGE_FALLBACK }));
+                      }
+                    }}
                   />
                 ) : (
                   <div className="text-5xl font-serif font-bold text-slate-200">NT</div>
