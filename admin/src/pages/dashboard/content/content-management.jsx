@@ -21,6 +21,7 @@ import {
 import { PencilIcon, PlusIcon, HomeIcon, UserIcon, BriefcaseIcon, AcademicCapIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { AuthContext, AlertContext } from "@/context";
 import { LoadingScreen } from "@/components/Spinner";
+import { buildAssetUrl } from "@/utils/api";
 
 const SECTION_TABS = [
   { label: "Home", value: "home", icon: HomeIcon },
@@ -38,6 +39,7 @@ export function ContentManagement() {
   const [currentSection, setCurrentSection] = useState(null);
   const [activeTab, setActiveTab] = useState("home");
   const [imageFile, setImageFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     section: "",
@@ -89,7 +91,8 @@ export function ContentManagement() {
       data: section.data || {}
     });
     setImageFile(null);
-    setImagePreview(section.image ? `http://localhost:3000${section.image}` : null);
+    setImageUrl(section.image || "");
+    setImagePreview(section.image ? buildAssetUrl(section.image) : null);
     setEditDialog(true);
   };
 
@@ -99,6 +102,7 @@ export function ContentManagement() {
     setCurrentSection(null);
     setFormData({ section: "", title: "", content: "", data: {} });
     setImageFile(null);
+    setImageUrl("");
     setImagePreview(null);
   };
 
@@ -107,6 +111,7 @@ export function ContentManagement() {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
+        setImageUrl("");
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -134,6 +139,10 @@ export function ContentManagement() {
       submitData.append('title', formData.title);
       submitData.append('content', formData.content);
       submitData.append('data', JSON.stringify(formData.data));
+
+      if (imageUrl.trim()) {
+        submitData.append('image', imageUrl.trim());
+      }
       
       if (imageFile) {
         submitData.append('image', imageFile);
@@ -334,6 +343,21 @@ export function ContentManagement() {
                     file:text-sm file:font-semibold
                     file:bg-blue-50 file:text-blue-700
                     hover:file:bg-blue-100"
+                />
+                <Input
+                  className="mt-3"
+                  label="Arba nuotraukos URL"
+                  value={imageUrl}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setImageUrl(value);
+                    if (value.trim()) {
+                      setImageFile(null);
+                      setImagePreview(buildAssetUrl(value.trim()));
+                    } else if (!imageFile) {
+                      setImagePreview(null);
+                    }
+                  }}
                 />
                 {imagePreview && (
                   <div className="mt-3">

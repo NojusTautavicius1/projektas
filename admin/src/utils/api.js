@@ -50,6 +50,16 @@ export function buildApiUrl(path = "") {
   return computedBase ? `${computedBase}${normalizedPath}` : normalizedPath;
 }
 
+export function buildAssetUrl(path = "") {
+  if (!path) return "";
+  if (absoluteUrlPattern.test(path) || path.startsWith("blob:") || path.startsWith("data:")) {
+    return path;
+  }
+
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return computedBase ? `${computedBase}${normalizedPath}` : normalizedPath;
+}
+
 export function apiFetch(path, options) {
   return fetch(buildApiUrl(path), options);
 }

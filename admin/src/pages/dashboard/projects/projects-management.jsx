@@ -17,6 +17,7 @@ import {
 import { PencilIcon, TrashIcon, PlusIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { AuthContext, AlertContext } from "@/context";
 import { LoadingScreen } from "@/components/Spinner";
+import { buildAssetUrl } from "@/utils/api";
 
 const TABLE_HEAD = ["Nuotrauka", "Pavadinimas", "Aprašymas", "Kategorija", "Data", "Veiksmai"];
 
@@ -61,6 +62,7 @@ export function ProjectsManagement() {
     image: null,
   });
   const [imagePreview, setImagePreview] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
 
   const { token } = useContext(AuthContext);
   const { addAlert } = useContext(AlertContext);
@@ -119,6 +121,10 @@ export function ProjectsManagement() {
       data.append('category', formData.category || '');
       data.append('sort_order', formData.sort_order || 0);
       data.append('publish_date', formData.publish_date || new Date().toISOString().split('T')[0]);
+
+      if (imageUrl.trim()) {
+        data.append('image', imageUrl.trim());
+      }
       
       if (formData.image) {
         data.append('image', formData.image);
@@ -145,6 +151,7 @@ export function ProjectsManagement() {
       setEditDialog(false);
       setSelectedProject(null);
       setImagePreview(null);
+      setImageUrl("");
       setFormData({
         title: "",
         description: "",
@@ -201,6 +208,7 @@ export function ProjectsManagement() {
         publish_date: project.publish_date ? new Date(project.publish_date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
         image: null,
       });
+      setImageUrl(project.image || "");
       setImagePreview(project.image || null);
     } else {
       setSelectedProject(null);
@@ -215,6 +223,7 @@ export function ProjectsManagement() {
         publish_date: new Date().toISOString().split('T')[0],
         image: null,
       });
+      setImageUrl("");
       setImagePreview(null);
     }
     setEditDialog(true);
@@ -287,7 +296,7 @@ export function ProjectsManagement() {
                       <td className={classes}>
                         {project.image ? (
                           <img 
-                            src={`http://localhost:3000${project.image}`} 
+                            src={buildAssetUrl(project.image)} 
                             alt={project.title}
                             className="w-16 h-16 object-cover rounded border border-slate-700"
                           />
@@ -432,15 +441,31 @@ export function ProjectsManagement() {
                 const file = e.target.files[0];
                 if (file) {
                   setFormData({ ...formData, image: file });
+                  setImageUrl("");
                   setImagePreview(URL.createObjectURL(file));
                 }
               }}
               className="w-full text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700"
             />
+            <Input
+              label="Arba nuotraukos URL"
+              value={imageUrl}
+              onChange={(e) => {
+                const value = e.target.value;
+                setImageUrl(value);
+                if (value.trim()) {
+                  setFormData({ ...formData, image: null });
+                  setImagePreview(value.trim());
+                } else if (!formData.image) {
+                  setImagePreview(null);
+                }
+              }}
+              className="text-slate-200 mt-3"
+            />
             {imagePreview && (
               <div className="mt-4">
                 <img 
-                  src={imagePreview.startsWith('blob:') ? imagePreview : `http://localhost:3000${imagePreview}`} 
+                  src={buildAssetUrl(imagePreview)} 
                   alt="Preview" 
                   className="w-full h-48 object-cover rounded border-2 border-slate-700"
                 />
