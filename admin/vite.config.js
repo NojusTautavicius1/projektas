@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
+const apiProxyTarget = process.env.VITE_PROXY_API_TARGET || "https://www.ntdev.lt";
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -24,7 +26,7 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: apiProxyTarget,
         changeOrigin: true,
         secure: false,
       },

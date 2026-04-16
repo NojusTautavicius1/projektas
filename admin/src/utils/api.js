@@ -1,12 +1,24 @@
 const rawBase = import.meta.env.VITE_API_BASE_URL?.trim();
 const defaultRemoteBase = "https://www.ntdev.lt";
+const forceCrossOrigin = import.meta.env.VITE_FORCE_CROSS_ORIGIN === "true";
 
 const computedBase = (() => {
+  const isBrowser = typeof window !== "undefined";
+  const isLocalhost =
+    isBrowser &&
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+
+  // In local dev prefer same-origin (/api) and let Vite proxy forward requests.
+  // This avoids browser CORS errors against deployed APIs.
+  if (isLocalhost && !forceCrossOrigin) {
+    return "";
+  }
+
   if (rawBase) {
     return rawBase.replace(/\/$/, "");
   }
 
-  if (typeof window !== "undefined") {
+  if (isBrowser) {
     const { protocol, hostname, port } = window.location;
     if (hostname === "localhost" || hostname === "127.0.0.1") {
       // Local admin commonly connects to deployed API.
