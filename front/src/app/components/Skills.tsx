@@ -5,33 +5,33 @@ import { useEffect, useState } from "react";
 const defaultSkillCategories = [
   {
     icon: Code2,
-    title: "Frontend",
+    title: "Frontend kūrimas",
     skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Motion"]
   },
   {
     icon: Database,
-    title: "Backend",
+    title: "Backend kūrimas",
     skills: ["Node.js", "Python", "PostgreSQL", "MongoDB", "GraphQL"]
   },
   {
     icon: Smartphone,
-    title: "Mobile",
-    skills: ["React Native", "Flutter", "iOS", "Android", "Progressive Web Apps"]
+    title: "Mobilus kūrimas",
+    skills: ["React Native", "Flutter", "iOS", "Android", "Progresyviosios žiniatinklio programos"]
   },
   {
     icon: Layers,
-    title: "Design",
-    skills: ["Figma", "Adobe XD", "UI/UX", "Prototyping", "Design Systems"]
+    title: "Dizainas",
+    skills: ["Figma", "Adobe XD", "UI/UX", "Prototipavimas", "Dizaino sistemos"]
   },
   {
     icon: Globe,
-    title: "Cloud & DevOps",
+    title: "Debesija ir DevOps",
     skills: ["AWS", "Docker", "Kubernetes", "CI/CD", "Vercel"]
   },
   {
     icon: Cpu,
-    title: "Other",
-    skills: ["Git", "Agile", "Testing", "Performance", "Accessibility"]
+    title: "Kiti įgūdžiai",
+    skills: ["Git", "Agile", "Testavimas", "Našumas", "Prieinamumas"]
   }
 ];
 
@@ -83,8 +83,8 @@ export function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">Skills & Expertise</h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">Technologies and tools used to craft reliable products</p>
+          <h2 className="text-4xl md:text-5xl mb-3 font-serif font-semibold text-gray-100">Įgūdžiai ir kompetencijos</h2>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">Technologijos ir įrankiai, kuriuos naudoju patikimiems produktams kurti</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -152,12 +152,12 @@ export function Skills() {
           className="mt-24"
         >
           <h3 className="text-3xl mb-12 text-center bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-            Experience
+            Patirtis
           </h3>
           
           <div className="max-w-3xl mx-auto space-y-8">
             {[
-              { year: "2024 - 2026", role: "Learning JavaScript", company: "KTMC" }
+              { year: "2024 - 2026", role: "JavaScript mokymasis", company: "KTMC" }
             ].map((exp, index) => (
               <motion.div
                 key={index}

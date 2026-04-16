@@ -27,45 +27,45 @@ const defaultFeatures = [
   {
     id: 1,
     icon: "Code2",
-    label: "Modern Tech",
-    description: "Built with cutting-edge technology and best practices"
+    label: "Modernios technologijos",
+    description: "Sukurta naudojant pažangias technologijas ir geriausias praktikas"
   },
   {
     id: 2,
     icon: "Layers",
-    label: "Layered Design",
-    description: "Beautiful depth and hierarchy in every element"
+    label: "Sluoksniuotas dizainas",
+    description: "Aiški vizualinė hierarchija ir gylis kiekviename elemente"
   },
   {
     id: 3,
     icon: "Palette",
-    label: "Dark Theme",
-    description: "Carefully crafted monochrome aesthetic"
+    label: "Tamsi tema",
+    description: "Kruopščiai sukurta monochrominė estetika"
   },
   {
     id: 4,
     icon: "Rocket",
-    label: "Performance",
-    description: "Optimized for lightning-fast load times"
+    label: "Našumas",
+    description: "Optimizuota ypač greitam įkėlimui"
   },
   {
     id: 5,
     icon: "Shield",
-    label: "Secure",
-    description: "Enterprise-grade security built-in"
+    label: "Saugumas",
+    description: "Integruotas aukšto lygio saugumas"
   },
   {
     id: 6,
     icon: "Gauge",
-    label: "Scalable",
-    description: "Grows with your needs seamlessly"
+    label: "Mastelio didinimas",
+    description: "Lengvai prisitaiko prie augančių poreikių"
   }
 ];
 
 export function FeatureCards() {
   const [sectionContent, setSectionContent] = useState({
-    title: "Features",
-    content: "Carefully selected capabilities for professional products"
+    title: "Funkcijos",
+    content: "Kruopščiai atrinktos galimybės profesionaliems produktams"
   });
   const [features, setFeatures] = useState<Feature[]>(defaultFeatures);
 
@@ -76,7 +76,7 @@ export function FeatureCards() {
       .then(data => {
         if (data) {
           setSectionContent({
-            title: data.title || "Features",
+            title: data.title || "Funkcijos",
             content: data.content || sectionContent.content
           });
         }

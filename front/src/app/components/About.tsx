@@ -21,14 +21,14 @@ export function About() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
     title: "Apie mane",
-    content: "Kuriu tvarkingus, production lygio skaitmeninius produktus, orientuotus i aiskuma, patikimuma ir kokybe. Turiu dizaino ir programavimo patirties, todel moku suderinti vizualu lygi su techniniu tikslumu.",
+    content: "Kuriu tvarkingus, produkcijai paruoštus skaitmeninius produktus, orientuotus į aiškumą, patikimumą ir kokybę. Turiu dizaino ir programavimo patirties, todėl moku suderinti vizualinę kokybę su techniniu tikslumu.",
     image: ABOUT_IMAGE_FALLBACK
   });
   
   const [boxes, setBoxes] = useState<FeatureBox[]>([
-    { id: 1, label: "Svarus kodas", icon: "Code2", description: "" },
+    { id: 1, label: "Švarus kodas", icon: "Code2", description: "" },
     { id: 2, label: "Dizainas", icon: "Palette", description: "" },
-    { id: 3, label: "Nasumas", icon: "Zap", description: "" }
+    { id: 3, label: "Našumas", icon: "Zap", description: "" }
   ]);
 
   useEffect(() => {

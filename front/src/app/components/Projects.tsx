@@ -22,7 +22,7 @@ export function Projects() {
   useEffect(() => {
     fetch("/api/projects")
       .then(res => {
-        if (!res.ok) throw new Error('Nepavyko gauti projektu');
+        if (!res.ok) throw new Error('Nepavyko gauti projektų');
         return res.json();
       })
       .then(data => {
@@ -45,7 +45,7 @@ export function Projects() {
               Projektai
             </h2>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              Mano sukurti projektai ir indelis i atviro kodo bendruomene. Man patinka kurti sprendimus, kurie sprendzia realias problemas.
+              Mano sukurti projektai ir indėlis į atvirojo kodo bendruomenę. Man patinka kurti sprendimus, kurie sprendžia realias problemas.
             </p>
           </div>
         </ScrollReveal>

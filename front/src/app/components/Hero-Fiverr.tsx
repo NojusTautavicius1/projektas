@@ -7,9 +7,9 @@ import { LoadingScreen } from "./Spinner";
 export function Hero() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
-    name: "Nojus Tautavicius",
+    name: "Nojus Tautavičius",
     subtitle: "Pilno ciklo programuotojas",
-    description: "React, Node.js ir modernus web sprendimai | Greitas pristatymas | Production lygio kodas",
+    description: "React, Node.js ir modernūs žiniatinklio sprendimai | Greitas pristatymas | Produkcijai paruoštas kodas",
     initials: "NT"
   });
 
@@ -56,7 +56,7 @@ export function Hero() {
           >
             <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-slate-800 via-gray-800 to-zinc-800 border-4 border-blue-500/50 overflow-hidden flex items-center justify-center shadow-2xl shadow-blue-500/30 relative">
               {/* Online badge */}
-              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 animate-pulse" title="Siuo metu laisvas" />
+              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 animate-pulse" title="Šiuo metu laisvas" />
               <div className="w-full h-full flex items-center justify-center text-5xl font-serif font-bold text-slate-200">
                 {content.initials}
               </div>
@@ -72,7 +72,7 @@ export function Hero() {
           >
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/10 border border-blue-500/30 rounded-full">
               <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-sm text-slate-300 font-medium">Aukstai ivertintas</span>
+              <span className="text-sm text-slate-300 font-medium">Aukštai įvertintas</span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full">
               <Clock className="w-4 h-4 text-green-400" />
@@ -120,7 +120,7 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg shadow-blue-500/30 transition-all"
             >
-              Ziureti projektus
+              Žiūrėti projektus
             </motion.a>
             <motion.a
               href="#contact"
@@ -128,7 +128,7 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-transparent border-2 border-blue-500/50 hover:border-blue-500 text-slate-200 font-semibold rounded-lg transition-all"
             >
-              Gauti nemokama pasiulyma
+              Gauti nemokamą pasiūlymą
             </motion.a>
           </motion.div>
 
@@ -142,7 +142,7 @@ export function Hero() {
             {[
               { icon: Github, href: "https://github.com/NojusTautavicius1", label: "GitHub" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/nojus-tautavičius-8242683b4", label: "LinkedIn" },
-              { icon: Mail, href: "#contact", label: "Email" }
+              { icon: Mail, href: "#contact", label: "El. paštas" }
             ].map((social, index) => {
               const isExternal = social.href?.startsWith("http");
               return (

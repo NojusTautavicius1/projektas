@@ -40,7 +40,7 @@ export function Contact() {
     
     // Honeypot check
     if (formData.website) {
-      setStatus({ type: "error", message: "Aptiktas neleistinas uzklausos turinys" });
+      setStatus({ type: "error", message: "Aptiktas neleistinas užklausos turinys" });
       return;
     }
 
@@ -61,7 +61,7 @@ export function Contact() {
       if (res.ok) {
         setStatus({
           type: "success",
-          message: "Zinute issiusta! Atsakysiu per 2 valandas. Netrukus patikrinkite el. pasta."
+          message: "Žinutė išsiųsta! Atsakysiu per 2 valandas. Netrukus patikrinkite el. paštą."
         });
         setFormData({ name: "", email: "", message: "", website: "" });
         
@@ -73,13 +73,13 @@ export function Contact() {
         const errorData = await res.json();
         setStatus({
           type: "error",
-          message: errorData.message || "Nepavyko issiusti zinutes. Bandykite dar karta."
+          message: errorData.message || "Nepavyko išsiųsti žinutės. Bandykite dar kartą."
         });
       }
     } catch (err) {
       setStatus({
         type: "error",
-        message: "Rysio klaida. Patikrinkite interneto rysi."
+        message: "Ryšio klaida. Patikrinkite interneto ryšį."
       });
     } finally {
       setIsSubmitting(false);
@@ -102,9 +102,9 @@ export function Contact() {
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
               <span className="text-blue-400 font-semibold">Dirbkime kartu</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Gaukite nemokama pasiulyma</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Gaukite nemokamą pasiūlymą</h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Atsakau per <span className="text-blue-400 font-semibold">2 valandas</span> • Nemokama konsultacija • Jokiu isipareigojimu
+              Atsakau per <span className="text-blue-400 font-semibold">2 valandas</span> • Nemokama konsultacija • Jokių įsipareigojimų
             </p>
           </div>
         </ScrollReveal>
@@ -138,7 +138,7 @@ export function Contact() {
               <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-4 text-center">
                 <Star className="w-8 h-8 text-yellow-400 fill-yellow-400 mx-auto mb-2" />
                 <div className="text-2xl font-bold">5.0</div>
-                <div className="text-sm text-gray-400">Klientu ivertinimas</div>
+                <div className="text-sm text-gray-400">Klientų įvertinimas</div>
               </div>
             </div>
             </div>
@@ -148,9 +148,9 @@ export function Contact() {
           <ScrollReveal delay={0.3} animation="fade-right">
             <div>
             <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-2">Parasykite man</h3>
+              <h3 className="text-2xl font-bold mb-2">Parašykite man</h3>
               <p className="text-gray-400 mb-6">
-                Trumpai aprasykite projekta ir grisiu su individualiu pasiulymu.
+                Trumpai aprašykite projektą ir grįšiu su individualiu pasiūlymu.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -168,7 +168,7 @@ export function Contact() {
 
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Jusu vardas *
+                    Jūsų vardas *
                   </label>
                   <input
                     type="text"
@@ -178,13 +178,13 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    placeholder="John Doe"
+                    placeholder="Jonas Jonaitis"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Jusu el. pastas *
+                    Jūsų el. paštas *
                   </label>
                   <input
                     type="email"
@@ -200,7 +200,7 @@ export function Contact() {
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Projekto detales *
+                    Projekto detalės *
                   </label>
                   <textarea
                     id="message"
@@ -210,7 +210,7 @@ export function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-                    placeholder="Papasakokite apie projekta: ka reikia sukurti, koks terminas, kokie svarbiausi reikalavimai?"
+                    placeholder="Papasakokite apie projektą: ką reikia sukurti, koks terminas, kokie svarbiausi reikalavimai?"
                   />
                 </div>
 
@@ -233,11 +233,11 @@ export function Contact() {
                   disabled={isSubmitting}
                   className="w-full px-6 py-4 bg-blue-500 hover:bg-blue-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
                 >
-                  {isSubmitting ? "Siunciama..." : "Siusti zinute ir gauti pasiulyma"}
+                  {isSubmitting ? "Siunčiama..." : "Siųsti žinutę ir gauti pasiūlymą"}
                 </button>
 
                 <p className="text-xs text-center text-gray-500">
-                  Pateikdami forma sutinkate gauti su projektu susijusius laiskus. Jokio spamo.
+                  Pateikdami formą sutinkate gauti su projektu susijusius laiškus. Jokio šlamšto.
                 </p>
               </form>
             </div>
@@ -249,10 +249,10 @@ export function Contact() {
         <ScrollReveal delay={0.4}>
           <div className="mt-32 pt-12 border-t border-gray-800 text-center">
             <p className="text-gray-600">
-              © 2026 Nojus Tautavicius. Visos teises saugomos.
+              © 2026 Nojus Tautavičius. Visos teisės saugomos.
             </p>
             <div className="mt-4 text-gray-700 text-sm">
-              Sukurta su meile ir daug Redbull
+              Sukurta su meile ir daug „Red Bull"
             </div>
           </div>
         </ScrollReveal>

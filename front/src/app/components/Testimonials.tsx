@@ -38,7 +38,7 @@ export function Testimonials() {
     fetch("/api/reviews")
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Nepavyko gauti atsiliepimu");
+            throw new Error("Nepavyko gauti atsiliepimų");
         }
         return res.json();
       })
@@ -47,7 +47,7 @@ export function Testimonials() {
       })
       .catch((err) => {
         console.error("Error loading reviews:", err);
-        setError("Nepavyko ikelti atsiliepimu.");
+          setError("Nepavyko įkelti atsiliepimų.");
       })
       .finally(() => {
         setLoading(false);
@@ -85,7 +85,7 @@ export function Testimonials() {
   const submitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!token) {
-      setError("Norint palikti atsiliepima, reikia prisijungti.");
+      setError("Norint palikti atsiliepimą, reikia prisijungti.");
       return;
     }
 
@@ -105,10 +105,10 @@ export function Testimonials() {
 
       const result = await response.json();
       if (!response.ok) {
-        throw new Error(result?.message || "Nepavyko issaugoti atsiliepimo");
+          throw new Error(result?.message || "Nepavyko išsaugoti atsiliepimo");
       }
 
-      setSuccess("Aciu! Jusu atsiliepimas sekmingai issaugotas.");
+        setSuccess("Ačiū! Jūsų atsiliepimas sėkmingai išsaugotas.");
       setFormData((prev) => ({
         ...prev,
         role: "",
@@ -126,7 +126,7 @@ export function Testimonials() {
       }
     } catch (err) {
       console.error(err);
-      setError(err instanceof Error ? err.message : "Ivyko klaida");
+        setError(err instanceof Error ? err.message : "Įvyko klaida");
     } finally {
       setSubmitting(false);
     }
@@ -140,12 +140,12 @@ export function Testimonials() {
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-4">
               <span className="text-blue-400 font-semibold flex items-center gap-2 justify-center">
                 <Star className="w-4 h-4 fill-blue-400" />
-                Klientu atsiliepimai
+                 Klientų atsiliepimai
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Tikri klientu ivertinimai</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Tikri klientų įvertinimai</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Cia rasite realius klientu atsiliepimus apie atliktus darbus.
+                Čia rasite realius klientų atsiliepimus apie atliktus darbus.
             </p>
 
             <div className="mt-6 flex justify-center gap-4 flex-wrap">
@@ -155,14 +155,14 @@ export function Testimonials() {
                   onClick={() => setShowForm((prev) => !prev)}
                   className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all"
                 >
-                  {showForm ? "Uzdaryti forma" : "Palikti atsiliepima"}
+                  {showForm ? "Uždaryti formą" : "Palikti atsiliepimą"}
                 </button>
               ) : (
                 <a
                   href="/login"
                   className="px-6 py-3 border border-blue-500/50 text-blue-300 hover:bg-blue-500/10 rounded-lg transition-all"
                 >
-                  Prisijunkite, kad paliktumete atsiliepima
+                    Prisijunkite, kad paliktumėte atsiliepimą
                 </a>
               )}
             </div>
@@ -178,18 +178,18 @@ export function Testimonials() {
               ))}
             </div>
             <div className="text-3xl font-bold">{averageRating}</div>
-            <div className="text-sm text-gray-500 mt-1">Vidutinis ivertinimas</div>
-            <div className="text-xs text-gray-600">(is visu atsiliepimu)</div>
+            <div className="text-sm text-gray-500 mt-1">Vidutinis įvertinimas</div>
+              <div className="text-xs text-gray-600">(iš visų atsiliepimų)</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-400">{reviews.length}</div>
-            <div className="text-sm text-gray-500 mt-1">Atsiliepimu kiekis</div>
-            <div className="text-xs text-gray-600">(realiu klientu)</div>
+              <div className="text-sm text-gray-500 mt-1">Atsiliepimų kiekis</div>
+              <div className="text-xs text-gray-600">(realių klientų)</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-400">100%</div>
-            <div className="text-sm text-gray-500 mt-1">Kokybes prioritetas</div>
-            <div className="text-xs text-gray-600">(kokybe pirmoje vietoje)</div>
+              <div className="text-sm text-gray-500 mt-1">Kokybės prioritetas</div>
+              <div className="text-xs text-gray-600">(kokybė pirmoje vietoje)</div>
           </div>
           </div>
         </ScrollReveal>
@@ -202,13 +202,13 @@ export function Testimonials() {
                 <input
                   value={formData.name}
                   onChange={(e) => handleInput("name", e.target.value)}
-                  placeholder="Jusu vardas"
+                  placeholder="Jūsų vardas"
                   className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg"
                 />
                 <input
                   value={formData.company}
                   onChange={(e) => handleInput("company", e.target.value)}
-                  placeholder="Imone (neprivaloma)"
+                  placeholder="Įmonė (neprivaloma)"
                   className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg"
                 />
               </div>
@@ -227,7 +227,7 @@ export function Testimonials() {
                 />
               </div>
               <div>
-                <label className="text-sm text-gray-400 block mb-2">Ivertinimas</label>
+                <label className="text-sm text-gray-400 block mb-2">Įvertinimas</label>
                 <select
                   value={formData.rating}
                   onChange={(e) => handleInput("rating", Number(e.target.value))}
@@ -245,7 +245,7 @@ export function Testimonials() {
                 rows={4}
                 value={formData.text}
                 onChange={(e) => handleInput("text", e.target.value)}
-                placeholder="Parasykite savo atsiliepima..."
+                placeholder="Parašykite savo atsiliepimą..."
                 className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg resize-none"
               />
               <button
@@ -253,7 +253,7 @@ export function Testimonials() {
                 disabled={submitting}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 disabled:bg-slate-700 text-white font-semibold rounded-lg transition-all"
               >
-                {submitting ? "Siunciama..." : "Issaugoti atsiliepima"}
+                {submitting ? "Siunčiama..." : "Išsaugoti atsiliepimą"}
               </button>
             </form>
           </div>
@@ -328,7 +328,7 @@ export function Testimonials() {
         <ScrollReveal delay={0.4}>
           <div className="mt-8 text-center">
           <p className="text-gray-400 mb-4">
-            Norite pradeti projekta?
+            Norite pradėti projektą?
           </p>
           <motion.a
             href="#contact"
@@ -337,7 +337,7 @@ export function Testimonials() {
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/30"
           >
             <Star className="w-5 h-5 fill-white" />
-            Susisiekti del projekto
+            Susisiekti dėl projekto
           </motion.a>
           </div>
         </ScrollReveal>

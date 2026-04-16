@@ -33,15 +33,15 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-[400px] flex flex-col items-center justify-center px-6">
           <div className="max-w-md text-center">
-            <h2 className="text-2xl font-bold text-red-500 mb-4">Something went wrong</h2>
+            <h2 className="text-2xl font-bold text-red-500 mb-4">Įvyko klaida</h2>
             <p className="text-slate-400 mb-6">
-              {this.state.error?.message || "An unexpected error occurred"}
+              {this.state.error?.message || "Įvyko nenumatyta klaida"}
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: undefined })}
               className="px-6 py-2 bg-slate-800 border-2 border-blue-500 text-slate-200 rounded hover:bg-slate-700 transition-colors"
             >
-              Try again
+              Bandyti dar kartą
             </button>
           </div>
         </div>
