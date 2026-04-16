@@ -10,6 +10,7 @@ import { AnimatedBackground } from "./components/AnimatedBackground";
 import { Navigation } from "./components/Navigation";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ScrollProgress } from "./components/ScrollProgress";
+import { CookieConsent } from "./components/CookieConsent";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 
@@ -76,6 +77,7 @@ export default function App() {
           */}
           <ErrorBoundary><Projects /></ErrorBoundary>
           <ErrorBoundary><Contact /></ErrorBoundary>
+          <CookieConsent />
         </div>
       </div>
     </ErrorBoundary>

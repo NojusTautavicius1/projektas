@@ -14,6 +14,25 @@ interface Review {
   created_at?: string;
 }
 
+const REVIEWS_CACHE_KEY = "reviews_cache_v1";
+
+const normalizeReview = (item: any, index: number): Review => {
+  const rating = Number(item?.rating);
+  const safeRating = Number.isFinite(rating) ? Math.min(5, Math.max(1, Math.round(rating))) : 5;
+  const safeName = String(item?.name || "Klientas").trim() || "Klientas";
+
+  return {
+    id: Number(item?.id) || index + 1,
+    name: safeName,
+    role: item?.role ? String(item.role) : undefined,
+    company: item?.company ? String(item.company) : undefined,
+    rating: safeRating,
+    text: String(item?.text || "").trim(),
+    project_type: item?.project_type ? String(item.project_type) : undefined,
+    created_at: item?.created_at ? String(item.created_at) : undefined,
+  };
+};
+
 export function Testimonials() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,8 +53,34 @@ export function Testimonials() {
   const storedUser = localStorage.getItem("user");
   const isLoggedIn = Boolean(token);
 
+  const readReviewsCache = (): Review[] => {
+    try {
+      const raw = localStorage.getItem(REVIEWS_CACHE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.map((item, index) => normalizeReview(item, index)).filter((item) => item.text);
+    } catch {
+      return [];
+    }
+  };
+
+  const writeReviewsCache = (list: Review[]) => {
+    try {
+      localStorage.setItem(REVIEWS_CACHE_KEY, JSON.stringify(list));
+    } catch {
+      // Ignore storage write errors.
+    }
+  };
+
   useEffect(() => {
-    fetch("/api/reviews")
+    const cached = readReviewsCache();
+    if (cached.length > 0) {
+      setReviews(cached);
+      setLoading(false);
+    }
+
+    fetch("/api/reviews", { cache: "no-store" })
       .then((res) => {
         if (!res.ok) {
             throw new Error("Nepavyko gauti atsiliepimų");
@@ -43,11 +88,18 @@ export function Testimonials() {
         return res.json();
       })
       .then((data) => {
-        setReviews(Array.isArray(data) ? data : []);
+        const normalized = Array.isArray(data)
+          ? data.map((item, index) => normalizeReview(item, index)).filter((item) => item.text)
+          : [];
+        setReviews(normalized);
+        writeReviewsCache(normalized);
+        setError("");
       })
       .catch((err) => {
         console.error("Error loading reviews:", err);
+        if (cached.length === 0) {
           setError("Nepavyko įkelti atsiliepimų.");
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -119,10 +171,14 @@ export function Testimonials() {
       }));
       setShowForm(false);
 
-      const listResponse = await fetch("/api/reviews");
+      const listResponse = await fetch("/api/reviews", { cache: "no-store" });
       if (listResponse.ok) {
         const listData = await listResponse.json();
-        setReviews(Array.isArray(listData) ? listData : []);
+        const normalized = Array.isArray(listData)
+          ? listData.map((item, index) => normalizeReview(item, index)).filter((item) => item.text)
+          : [];
+        setReviews(normalized);
+        writeReviewsCache(normalized);
       }
     } catch (err) {
       console.error(err);
@@ -296,7 +352,7 @@ export function Testimonials() {
               <Quote className="w-8 h-8 text-blue-400/30 mb-4" />
 
               <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
+                {[...Array(Math.max(1, Math.min(5, Number(testimonial.rating) || 5)))].map((_, i) => (
                   <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                 ))}
               </div>
@@ -307,7 +363,11 @@ export function Testimonials() {
 
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center font-bold text-white">
-                  {testimonial.name.split(' ').map(n => n[0]).join('')}
+                  {String(testimonial.name || "Klientas")
+                    .split(" ")
+                    .filter(Boolean)
+                    .map((n) => n[0])
+                    .join("") || "K"}
                 </div>
                 <div>
                   <div className="font-semibold">{testimonial.name}</div>
