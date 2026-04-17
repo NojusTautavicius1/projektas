@@ -8,6 +8,7 @@ import {
   EnvelopeIcon,
   ClockIcon,
   BriefcaseIcon,
+  ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, UserList} from "@/pages/dashboard";
 import { ContentManagement } from "@/pages/dashboard/content";
@@ -16,6 +17,7 @@ import { MessagesList } from "@/pages/dashboard/messages/messages-list";
 import { ActivityLog } from "@/pages/dashboard/activity/activity-log";
 import { ProjectsManagement } from "@/pages/dashboard/projects/projects-management";
 import { ServicesManagement } from "@/pages/dashboard/services/services-management";
+import { ReviewsManagement } from "@/pages/dashboard/reviews/reviews-management";
 import { SignIn, SignUp, SignOut } from "@/pages/auth";
 
 const icon = {
@@ -55,6 +57,12 @@ export const routes = [
         name: "Services",
         path: "/services",
         element: <ServicesManagement />,
+      },
+      {
+        icon: <ChatBubbleLeftRightIcon {...icon} />,
+        name: "Reviews",
+        path: "/reviews",
+        element: <ReviewsManagement />,
       },
       {
         icon: <EnvelopeIcon {...icon} />,

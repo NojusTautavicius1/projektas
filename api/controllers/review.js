@@ -88,3 +88,26 @@ export const create = async (req, res, next) => {
     next({ message: 'Nepavyko issaugoti atsiliepimo' });
   }
 };
+
+export const destroy = async (req, res, next) => {
+  try {
+    const id = Number.parseInt(req.params.id, 10);
+
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({ message: 'Neteisingas atsiliepimo ID' });
+    }
+
+    const [result] = await db.query(`DELETE FROM ${tableName} WHERE id = ?`, [id]);
+    const deletedCount = Number(result?.affectedRows ?? result?.rowCount ?? 0);
+
+    if (!deletedCount) {
+      return res.status(404).json({ message: 'Atsiliepimas nerastas' });
+    }
+
+    res.json({ message: 'Atsiliepimas istrintas' });
+  } catch (error) {
+    console.error('Error deleting review:', error);
+    res.status(500);
+    next({ message: 'Nepavyko istrinti atsiliepimo' });
+  }
+};
