@@ -13,6 +13,7 @@ import { ScrollProgress } from "./components/ScrollProgress";
 import { CookieConsent } from "./components/CookieConsent";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
+import { scrollToPathSection } from "./utils/sectionNavigation";
 
 export default function App() {
   const [path, setPath] = useState<string>("");
@@ -33,6 +34,18 @@ export default function App() {
       window.removeEventListener("hashchange", onHashChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (!path) return;
+    if (path === "/login" || path === "/login/") return;
+
+    // Allow content to mount before trying to scroll to a section.
+    const timer = window.setTimeout(() => {
+      scrollToPathSection(path, "auto");
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, [path]);
 
   // Remove loading screen after component mounts
   useEffect(() => {

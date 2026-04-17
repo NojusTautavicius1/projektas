@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { User, LogOut, Menu, X } from "lucide-react";
+import { navigateToSectionPath, SECTION_LINKS } from "../utils/sectionNavigation";
 
 const navItems = [
-  { name: "Pradžia", href: "#home" },
-  { name: "Apie mane", href: "#about" },
-  { name: "Atsiliepimai", href: "#testimonials" },
-  { name: "Projektai", href: "#projects" },
-  { name: "Kontaktai", href: "#contact" }
+  { name: "Pradžia", path: SECTION_LINKS.home },
+  { name: "Apie mane", path: SECTION_LINKS.about },
+  { name: "Atsiliepimai", path: SECTION_LINKS.testimonials },
+  { name: "Projektai", path: SECTION_LINKS.projects },
+  { name: "Kontaktai", path: SECTION_LINKS.contact }
 ];
 
 export function Navigation() {
@@ -42,6 +43,18 @@ export function Navigation() {
     window.location.href = "/";
   };
 
+  const handleSectionNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    path: string,
+    closeMobile = false
+  ) => {
+    event.preventDefault();
+    navigateToSectionPath(path);
+    if (closeMobile) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -56,7 +69,8 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-6 md:pl-20 md:pr-6 py-4">
         <div className="flex items-center justify-between">
           <motion.a
-            href="#home"
+            href={SECTION_LINKS.home}
+            onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.home)}
             whileHover={{ scale: 1.02 }}
             className="text-lg font-semibold tracking-wider text-gray-100"
           >
@@ -67,7 +81,8 @@ export function Navigation() {
             {navItems.map((item, index) => (
               <motion.a
                 key={index}
-                href={item.href}
+                href={item.path}
+                onClick={(event) => handleSectionNavigation(event, item.path)}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
@@ -81,7 +96,8 @@ export function Navigation() {
 
           <div className="hidden md:flex items-center gap-4">
             <motion.a
-              href="#contact"
+              href={SECTION_LINKS.contact}
+              onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.contact)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-4 py-2 bg-slate-900 border-2 border-blue-500 text-slate-200 rounded-md text-sm hover:bg-slate-800 hover:border-blue-400 transition-all shadow-md"
@@ -139,8 +155,8 @@ export function Navigation() {
             {navItems.map((item, index) => (
               <a
                 key={index}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
+                href={item.path}
+                onClick={(event) => handleSectionNavigation(event, item.path, true)}
                 className="block text-gray-300 hover:text-gray-100 transition-colors py-2"
               >
                 {item.name}
@@ -149,8 +165,8 @@ export function Navigation() {
             
             <div className="pt-3 space-y-2">
               <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
+                href={SECTION_LINKS.contact}
+                onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.contact, true)}
                 className="block w-full px-4 py-2 bg-slate-900 border-2 border-blue-500 text-slate-200 rounded-md text-sm hover:bg-slate-800 hover:border-blue-400 transition-all text-center"
               >
                 Susisiekti

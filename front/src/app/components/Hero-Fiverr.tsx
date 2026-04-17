@@ -1,8 +1,9 @@
 // Fiverr-optimized Hero Component
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowDown, Star, Clock } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { LoadingScreen } from "./Spinner";
+import { navigateToSectionPath, SECTION_LINKS } from "../utils/sectionNavigation";
 
 export function Hero() {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,14 @@ export function Hero() {
       .catch(err => console.error("Failed to load hero content:", err))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleSectionNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    path: string
+  ) => {
+    event.preventDefault();
+    navigateToSectionPath(path);
+  };
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center px-6 relative">
@@ -115,7 +124,8 @@ export function Hero() {
             className="flex flex-wrap gap-4 justify-center items-center mb-12"
           >
             <motion.a
-              href="#projects"
+              href={SECTION_LINKS.projects}
+              onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.projects)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg shadow-blue-500/30 transition-all"
@@ -123,7 +133,8 @@ export function Hero() {
               Žiūrėti projektus
             </motion.a>
             <motion.a
-              href="#contact"
+              href={SECTION_LINKS.contact}
+              onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.contact)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-transparent border-2 border-blue-500/50 hover:border-blue-500 text-slate-200 font-semibold rounded-lg transition-all"
@@ -142,13 +153,14 @@ export function Hero() {
             {[
               { icon: Github, href: "https://github.com/NojusTautavicius1", label: "GitHub" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/nojus-tautavičius-8242683b4", label: "LinkedIn" },
-              { icon: Mail, href: "#contact", label: "El. paštas" }
+              { icon: Mail, href: SECTION_LINKS.contact, label: "El. paštas" }
             ].map((social, index) => {
               const isExternal = social.href?.startsWith("http");
               return (
                 <motion.a
                   key={index}
                   href={social.href}
+                  onClick={isExternal ? undefined : (event) => handleSectionNavigation(event, social.href)}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
                   whileHover={{ scale: 1.2, y: -5 }}
@@ -164,7 +176,8 @@ export function Hero() {
 
           {/* Scroll Indicator */}
           <motion.a
-            href="#about"
+            href={SECTION_LINKS.about}
+            onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.about)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
