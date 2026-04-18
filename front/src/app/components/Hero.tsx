@@ -3,10 +3,23 @@ import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./Spinner";
 
+const normalizeHeroName = (name?: string): string => {
+  if (!name) {
+    return "Nojus Tautavičius";
+  }
+
+  const normalized = name.trim();
+  if (normalized.toLowerCase() === "nojus tautavicius") {
+    return "Nojus Tautavičius";
+  }
+
+  return normalized;
+};
+
 export function Hero() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
-    name: "Nojus Tautavicius",
+    name: "Nojus Tautavičius",
     subtitle: "Creative Developer",
     description: "Building digital experiences that merge creativity with thoughtful engineering",
     initials: "NT"
@@ -18,7 +31,7 @@ export function Hero() {
       .then(data => {
         if (data) {
           setContent({
-            name: data.title || content.name,
+            name: normalizeHeroName(data.title || content.name),
             subtitle: data.data?.subtitle || content.subtitle,
             description: data.content || content.description,
             initials: data.data?.initials || content.initials

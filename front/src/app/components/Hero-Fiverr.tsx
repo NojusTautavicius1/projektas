@@ -5,6 +5,19 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { LoadingScreen } from "./Spinner";
 import { navigateToSectionPath, SECTION_LINKS } from "../utils/sectionNavigation";
 
+const normalizeHeroName = (name?: string): string => {
+  if (!name) {
+    return "Nojus Tautavičius";
+  }
+
+  const normalized = name.trim();
+  if (normalized.toLowerCase() === "nojus tautavicius") {
+    return "Nojus Tautavičius";
+  }
+
+  return normalized;
+};
+
 export function Hero() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
@@ -20,7 +33,7 @@ export function Hero() {
       .then(data => {
         if (data) {
           setContent({
-            name: data.title || content.name,
+            name: normalizeHeroName(data.title || content.name),
             subtitle: data.data?.subtitle || content.subtitle,
             description: data.content || content.description,
             initials: data.data?.initials || content.initials

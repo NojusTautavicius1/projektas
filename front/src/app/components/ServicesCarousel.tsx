@@ -24,35 +24,35 @@ const SLIDES: ServiceSlide[] = [
   {
     title: "Web Development",
     description:
-      "Kuriu greitas, konversijai optimizuotas svetaines ir web aplikacijas su svaria architektura bei patikimu kodu.",
+      "Kuriu greitas, konversijai optimizuotas svetaines ir web aplikacijas su švaria architektūra bei patikimu kodu.",
     icon: Code2,
     badge: "Frontend + Backend",
   },
   {
     title: "SEO Optimizacija",
     description:
-      "Tvarkau technini SEO, turinio struktura ir greicio rodiklius, kad tavo puslapis kiltu paieskoje ir pritrauktu daugiau uzklausu.",
+      "Tvarkau techninį SEO, turinio struktūrą ir greičio rodiklius, kad tavo puslapis kiltų paieškoje ir pritrauktų daugiau užklausų.",
     icon: Search,
     badge: "Technical SEO",
   },
   {
     title: "UI/UX Dizainas",
     description:
-      "Kuriu aisku, modernu ir patogu naudotojo kelia nuo pirmo scroll iki veiksmo, kad dizainas dirbtu verslo rezultatui.",
+      "Kuriu aiškų, modernų ir patogų naudotojo kelią nuo pirmo scroll iki veiksmo, kad dizainas dirbtų verslo rezultatui.",
     icon: Palette,
     badge: "Product Design",
   },
   {
     title: "Responsive Sprendimai",
     description:
-      "Uzrinu, kad kiekvienas puslapis atrodytu ir veiktu sklandziai telefone, planseteje ir desktop ekranuose.",
+      "Užtikrinu, kad kiekvienas puslapis atrodytų ir veiktų sklandžiai telefone, planšetėje ir kompiuterio ekrane.",
     icon: Smartphone,
     badge: "Mobile First",
   },
   {
     title: "Performance & CRO",
     description:
-      "Optimizuoju uzkrovimo laika, Core Web Vitals ir puslapio struktura, kad vartotojai greiciau rastu ir atliktu norima veiksma.",
+      "Optimizuoju užkrovimo laiką, Core Web Vitals ir puslapio struktūrą, kad vartotojai greičiau rastų ir atliktų norimą veiksmą.",
     icon: BarChart3,
     badge: "Speed + Conversion",
   },
@@ -263,13 +263,13 @@ export function ServicesCarousel() {
       >
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 rounded-full border border-blue-500/35 bg-blue-500/10 text-blue-300 text-sm tracking-wide uppercase">
-            Ka as darau
+            Ką aš darau
           </div>
           <h2 className="text-4xl md:text-5xl mt-5 font-serif font-semibold text-gray-100">
-            Paslaugos, kurios duoda rezultata
+            Paslaugos, kurios duoda rezultatą
           </h2>
           <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            Viena kortele centre ir gyvas kaimyniniu korteliu preview, kad greitai perziuretum visas mano kompetencijas.
+            Viena kortelė centre ir gyvas kaimyninių kortelių preview, kad greitai peržiūrėtum visas mano kompetencijas.
           </p>
         </div>
 
@@ -324,7 +324,7 @@ export function ServicesCarousel() {
             type="button"
             onClick={goPrev}
             disabled={isAnimating}
-            aria-label="Rodyti ankstesne paslauga"
+            aria-label="Rodyti ankstesnę paslaugą"
             className="hidden md:flex items-center justify-center absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-slate-700 bg-slate-950/80 text-slate-200 hover:border-blue-400 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -334,14 +334,14 @@ export function ServicesCarousel() {
             type="button"
             onClick={goNext}
             disabled={isAnimating}
-            aria-label="Rodyti kita paslauga"
+            aria-label="Rodyti kitą paslaugą"
             className="hidden md:flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-slate-700 bg-slate-950/80 text-slate-200 hover:border-blue-400 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="mt-7 flex items-center justify-center gap-2" role="tablist" aria-label="Paslaugu skaidres">
+        <div className="mt-7 flex items-center justify-center gap-2" role="tablist" aria-label="Paslaugų skaidrės">
           {SLIDES.map((slide, index) => {
             const isActive = index === activeIndex;
 
@@ -362,7 +362,7 @@ export function ServicesCarousel() {
                 className={`h-2.5 rounded-full transition-all duration-300 ${
                   isActive ? "w-8 bg-blue-400" : "w-2.5 bg-slate-600 hover:bg-slate-500"
                 }`}
-                aria-label={`Rodyti skaidre: ${slide.title}`}
+                aria-label={`Rodyti skaidrę: ${slide.title}`}
                 aria-selected={isActive}
                 role="tab"
               />
