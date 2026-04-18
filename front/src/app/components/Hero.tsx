@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
+import { Facebook, Linkedin, Mail, ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./Spinner";
 
@@ -106,7 +106,7 @@ export function Hero() {
             className="flex gap-6 justify-center items-center mb-16"
           >
             {[
-              { icon: Github, href: "https://github.com/NojusTautavicius1", label: "GitHub" },
+              { icon: Facebook, href: "https://www.facebook.com/nojus.tautavicius.9/", label: "Facebook" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/nojus-tautavi%C4%8Dius-8242683b4", label: "LinkedIn" },
               { icon: Mail, href: "#contact", label: "Email" }
             ].map((social, index) => {

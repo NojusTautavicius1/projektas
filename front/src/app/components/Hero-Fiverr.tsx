@@ -1,6 +1,6 @@
 // Fiverr-optimized Hero Component
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowDown, Star, Clock } from "lucide-react";
+import { Facebook, Linkedin, Mail, ArrowDown, Star, Clock } from "lucide-react";
 import { useEffect, useState, type MouseEvent } from "react";
 import { LoadingScreen } from "./Spinner";
 import { navigateToSectionPath, SECTION_LINKS } from "../utils/sectionNavigation";
@@ -164,7 +164,7 @@ export function Hero() {
             className="flex gap-6 justify-center items-center mb-16"
           >
             {[
-              { icon: Github, href: "https://github.com/NojusTautavicius1", label: "GitHub" },
+              { icon: Facebook, href: "https://www.facebook.com/nojus.tautavicius.9/", label: "Facebook" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/nojus-tautavičius-8242683b4", label: "LinkedIn" },
               { icon: Mail, href: SECTION_LINKS.contact, label: "El. paštas" }
             ].map((social, index) => {
