@@ -1,5 +1,6 @@
 import { Hero } from "./components/Hero-Fiverr";
 import { About } from "./components/About";
+import { ServicesCarousel } from "./components/ServicesCarousel";
 import { Testimonials } from "./components/Testimonials";
 // import { Services } from "./components/Services";
 import { Projects } from "./components/Projects";
@@ -96,6 +97,7 @@ export default function App() {
           <Navigation />
           <ErrorBoundary><Hero /></ErrorBoundary>
           <ErrorBoundary><About /></ErrorBoundary>
+          <ErrorBoundary><ServicesCarousel /></ErrorBoundary>
           <ErrorBoundary><Testimonials /></ErrorBoundary>
           {/* Services section is temporarily hidden, kept for future use.
           <ErrorBoundary><Services /></ErrorBoundary>
