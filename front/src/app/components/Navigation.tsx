@@ -73,9 +73,9 @@ export function Navigation() {
             href={SECTION_LINKS.home}
             onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.home)}
             whileHover={{ scale: 1.02 }}
-            className="flex items-center overflow-visible"
+            className="flex-none flex items-center"
           >
-            <img src="/logo.png" alt="NTDEV" className="h-48 w-auto brightness-0 invert -my-16" />
+            <img src="/logo.png" alt="NTDEV" className="h-32 md:h-48 w-auto brightness-0 invert -my-10 md:-my-16" />
           </motion.a>
 
           <div className="hidden md:flex items-center gap-8">
