@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { CheckCircle, Mail, MapPin, Clock, Star, Phone } from "lucide-react";
 
 // Pakeisk savo tikruoju telefono numeriu (WhatsApp formatu: +370XXXXXXXX)
-const WHATSAPP_NUMBER = "+370XXXXXXXX";
+const WHATSAPP_NUMBER = "+37060116008";
 import { ScrollReveal } from "./ScrollReveal";
 
 export function Contact() {
