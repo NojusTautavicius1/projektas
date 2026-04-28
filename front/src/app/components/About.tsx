@@ -95,7 +95,7 @@ export function About() {
                 {content.content}
               </p>
 
-              <div className={`grid gap-4 pt-8 ${boxes.length === 3 ? 'grid-cols-3' : boxes.length === 2 ? 'grid-cols-2' : boxes.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
+              <div className={`grid gap-4 pt-8 ${boxes.length === 3 ? 'grid-cols-2 md:grid-cols-3' : boxes.length === 2 ? 'grid-cols-2' : boxes.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
                   {boxes.map((item, index) => {
                     const IconComponent = iconMap[item.icon] || Code2;
                     return (
@@ -110,7 +110,7 @@ export function About() {
                         title={item.description || item.label}
                       >
                         <IconComponent className="w-6 h-6 mx-auto mb-2 text-slate-400" />
-                        <p className="text-sm text-slate-300">{item.label}</p>
+                        <p className="text-sm text-slate-300 break-words">{item.label}</p>
                       </motion.div>
                     );
                   })}
