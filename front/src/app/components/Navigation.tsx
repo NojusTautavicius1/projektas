@@ -6,7 +6,8 @@ import { navigateToSectionPath, SECTION_LINKS } from "../utils/sectionNavigation
 const navItems = [
   { name: "Pradžia", path: SECTION_LINKS.home },
   { name: "Apie mane", path: SECTION_LINKS.about },
-  { name: "Atsiliepimai", path: SECTION_LINKS.testimonials },
+  { name: "Paslaugos", path: SECTION_LINKS.services },
+  { name: "Kainos", path: SECTION_LINKS.pricing },
   { name: "Projektai", path: SECTION_LINKS.projects },
   { name: "Kontaktai", path: SECTION_LINKS.contact }
 ];

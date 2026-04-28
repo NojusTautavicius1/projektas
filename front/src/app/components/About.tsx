@@ -21,7 +21,7 @@ export function About() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState({
     title: "Apie mane",
-    content: "Kuriu tvarkingus, produkcijai paruoštus skaitmeninius produktus, orientuotus į aiškumą, patikimumą ir kokybę. Turiu dizaino ir programavimo patirties, todėl moku suderinti vizualinę kokybę su techniniu tikslumu.",
+    content: "Esu Nojus iš Kretingos — savarankiškai išmokęs programuotojas, kuris padeda mažiems Lietuvos verslams įsitvirtinti internete. Sukūriau ir pardaviau savo pirmą komercinį projektą kalvita.lt, aktyviai naudoju modernius įrankius ir visada pristatau darbus laiku. Jei reikia svetainės, SEO ar Google buvimo — susisiekite.",
     image: ABOUT_IMAGE_FALLBACK
   });
   

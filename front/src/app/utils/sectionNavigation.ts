@@ -2,6 +2,8 @@ const SECTION_ID_BY_PATH: Record<string, string> = {
   "/": "home",
   "/pradzia": "home",
   "/apie-mane": "about",
+  "/paslaugos": "services",
+  "/kainos": "pricing",
   "/atsiliepimai": "testimonials",
   "/projektai": "projects",
   "/kontaktai": "contact",
@@ -51,6 +53,8 @@ export const navigateToSectionPath = (pathname: string): void => {
 export const SECTION_LINKS = {
   home: "/",
   about: "/apie-mane",
+  services: "/paslaugos",
+  pricing: "/kainos",
   testimonials: "/atsiliepimai",
   projects: "/projektai",
   contact: "/kontaktai",

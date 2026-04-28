@@ -23,7 +23,7 @@ export function Hero() {
   const [content, setContent] = useState({
     name: "Nojus Tautavičius",
     subtitle: "Pilno ciklo programuotojas",
-    description: "React, Node.js ir modernūs žiniatinklio sprendimai | Greitas pristatymas | Produkcijai paruoštas kodas",
+    description: "Kuriu profesionalias svetaines mažiems Lietuvos verslams — greitas pristatymas, modernus dizainas, randamas Google.",
     initials: "NT"
   });
 
@@ -124,10 +124,20 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-gray-300 mb-6 max-w-3xl mx-auto leading-relaxed"
           >
             {content.description}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.95 }}
+            className="flex items-center justify-center gap-2 text-sm text-gray-500 mb-10"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
+            Kretinga, Lietuva · Dirbu visoje Lietuvoje
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div

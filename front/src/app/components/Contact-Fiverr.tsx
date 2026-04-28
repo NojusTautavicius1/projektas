@@ -1,6 +1,9 @@
 // Fiverr-optimized Contact Component
 import { useState, useEffect } from "react";
-import { CheckCircle, Mail, MapPin, Clock, Star } from "lucide-react";
+import { CheckCircle, Mail, MapPin, Clock, Star, Phone } from "lucide-react";
+
+// Pakeisk savo tikruoju telefono numeriu (WhatsApp formatu: +370XXXXXXXX)
+const WHATSAPP_NUMBER = "+370XXXXXXXX";
 import { ScrollReveal } from "./ScrollReveal";
 
 export function Contact() {
@@ -114,16 +117,41 @@ export function Contact() {
           <ScrollReveal delay={0.2} animation="fade-left">
             <div>
             {/* Quick Contact Methods */}
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 mb-8">
               <div className="flex items-start gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-blue-500/30 transition-all">
                 <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                   <Mail className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-1">El. pastas</h4>
-                  <a href="mailto:nojustautavicius007@gmail.com" className="text-gray-400 hover:text-blue-400 transition-colors">
+                  <h4 className="font-semibold mb-1">El. paštas</h4>
+                  <a href="mailto:nojustautavicius007@gmail.com" className="text-gray-400 hover:text-blue-400 transition-colors text-sm">
                     nojustautavicius007@gmail.com
                   </a>
+                </div>
+              </div>
+
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-green-500/40 transition-all group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-6 h-6 text-green-400" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-1 group-hover:text-green-400 transition-colors">WhatsApp</h4>
+                  <span className="text-gray-400 text-sm">Greičiausias būdas susisiekti</span>
+                </div>
+              </a>
+
+              <div className="flex items-start gap-4 p-4 bg-slate-900/50 border border-slate-800 rounded-xl">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-6 h-6 text-slate-400" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-1">Vieta</h4>
+                  <span className="text-gray-400 text-sm">Kretinga, Lietuva · Dirbu visoje Lietuvoje</span>
                 </div>
               </div>
             </div>

@@ -1,8 +1,9 @@
 import { Hero } from "./components/Hero-Fiverr";
 import { About } from "./components/About";
+import { Process } from "./components/Process";
 import { ServicesCarousel } from "./components/ServicesCarousel";
+import { Pricing } from "./components/Pricing";
 import { Testimonials } from "./components/Testimonials";
-// import { Services } from "./components/Services";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact-Fiverr";
 import { FloatingElements } from "./components/FloatingElements";
@@ -97,11 +98,10 @@ export default function App() {
           <Navigation />
           <ErrorBoundary><Hero /></ErrorBoundary>
           <ErrorBoundary><About /></ErrorBoundary>
+          <ErrorBoundary><Process /></ErrorBoundary>
           <ErrorBoundary><ServicesCarousel /></ErrorBoundary>
+          <ErrorBoundary><Pricing /></ErrorBoundary>
           <ErrorBoundary><Testimonials /></ErrorBoundary>
-          {/* Services section is temporarily hidden, kept for future use.
-          <ErrorBoundary><Services /></ErrorBoundary>
-          */}
           <ErrorBoundary><Projects /></ErrorBoundary>
           <ErrorBoundary><Contact /></ErrorBoundary>
           <CookieConsent />
