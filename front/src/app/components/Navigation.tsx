@@ -75,7 +75,7 @@ export function Navigation() {
             whileHover={{ scale: 1.02 }}
             className="flex items-center"
           >
-            <img src="/logo_ntdev.svg" alt="NTDEV" className="h-14 w-auto" />
+            <img src="/logo_ntdev.png" alt="NTDEV" className="h-24 w-auto brightness-0 invert" />
           </motion.a>
 
           <div className="hidden md:flex items-center gap-8">
