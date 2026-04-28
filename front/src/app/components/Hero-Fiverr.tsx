@@ -78,8 +78,19 @@ export function Hero() {
           >
             <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-slate-800 via-gray-800 to-zinc-800 border-4 border-blue-500/50 overflow-hidden flex items-center justify-center shadow-2xl shadow-blue-500/30 relative">
               {/* Online badge */}
-              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 animate-pulse" title="Šiuo metu laisvas" />
-              <div className="w-full h-full flex items-center justify-center text-5xl font-serif font-bold text-slate-200">
+              <div className="absolute top-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900 animate-pulse z-10" title="Šiuo metu laisvas" />
+              <img
+                src="/images/content/about.jpg"
+                alt={content.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  target.style.display = "none";
+                  const fallback = target.nextElementSibling as HTMLElement | null;
+                  if (fallback) fallback.style.display = "flex";
+                }}
+              />
+              <div className="w-full h-full items-center justify-center text-5xl font-serif font-bold text-slate-200 hidden">
                 {content.initials}
               </div>
             </div>

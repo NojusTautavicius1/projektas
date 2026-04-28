@@ -73,9 +73,9 @@ export function Navigation() {
             href={SECTION_LINKS.home}
             onClick={(event) => handleSectionNavigation(event, SECTION_LINKS.home)}
             whileHover={{ scale: 1.02 }}
-            className="text-lg font-semibold tracking-wider text-gray-100"
+            className="flex items-center"
           >
-            <span className="font-serif">NT</span>
+            <img src="/logo_ntdev.svg" alt="NTDEV" className="h-9 w-auto brightness-0 invert" />
           </motion.a>
 
           <div className="hidden md:flex items-center gap-8">
