@@ -297,7 +297,7 @@ export function ServicesCarousel() {
                   }}
                   aria-hidden={slot !== "current"}
                 >
-                  <div className="h-full rounded-3xl border border-slate-700/80 bg-gradient-to-br from-slate-900/95 via-slate-900/85 to-zinc-900/95 p-6 md:p-8 shadow-[0_24px_60px_rgba(2,6,23,0.48)] transition-transform duration-300 ease-in-out group-hover:scale-[1.03]">
+                  <div className="h-full rounded-3xl border border-slate-700/80 bg-gradient-to-br from-slate-900/95 via-slate-900/85 to-zinc-900/95 p-6 md:p-8 shadow-[0_24px_60px_rgba(2,6,23,0.48)] transition-transform duration-300 ease-in-out group-hover:scale-[1.03] overflow-hidden">
                     <div className="flex items-start justify-between gap-4">
                       <span className="px-3 py-1 rounded-full border border-slate-600 text-xs md:text-sm text-slate-300 bg-slate-800/70">
                         {slide.badge}
@@ -311,7 +311,7 @@ export function ServicesCarousel() {
                       {slide.title}
                     </h3>
 
-                    <p className="mt-4 text-gray-300 md:text-lg leading-relaxed max-w-2xl">
+                    <p className="mt-4 text-gray-300 md:text-lg leading-relaxed max-w-2xl line-clamp-4">
                       {slide.description}
                     </p>
                   </div>

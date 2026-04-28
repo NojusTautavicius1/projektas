@@ -207,6 +207,7 @@ export function Hero() {
         </motion.div>
       </div>
       )}
+      <span className="sr-only">Nojus Tautavičius – programuotojas Kretingoje, web kūrėjas Lietuvoje. Profesionalių svetainių kūrimas, SEO optimizacija, React ir Node.js sprendimai verslui.</span>
     </section>
   );
 }

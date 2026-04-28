@@ -150,7 +150,7 @@ export function Navigation() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden mt-4 pb-4 space-y-3"
+            className="md:hidden mt-4 pb-4 space-y-3 bg-slate-950/95 backdrop-blur-lg rounded-xl px-2"
           >
             {navItems.map((item, index) => (
               <a
